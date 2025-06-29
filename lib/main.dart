@@ -1,20 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:taskzen/app_router.dart';
+import 'package:taskzen/features/shared/themes/app_theme.dart';
 
 void main() {
-  runApp(const MainApp());
-}
-
-class MainApp extends StatelessWidget {
-  const MainApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: Text('Hello World!'),
-        ),
+  runApp(
+    ProviderScope(
+      child: MaterialApp.router(
+        title: 'TaskZen',
+        theme: AppTheme.lightTheme,
+        darkTheme: AppTheme.darkTheme,
+        routerConfig: appRouter,
       ),
-    );
-  }
+    ),
+  );
 }
