@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:taskzen/features/task_board/presentation/blocs/task/task_bloc.dart';
+import 'package:go_router/go_router.dart';
 
+import '../../../shared/enum/enum.dart';
 import '../../domain/entities/task.dart';
-import '../providers/task_provider.dart';
+import '../blocs/task/task_bloc.dart';
+import '../providers/task/task_provider.dart';
 import '../widgets/task_card.dart';
 
 class TaskBoardPage extends ConsumerWidget {
@@ -47,7 +49,7 @@ class TaskBoardPage extends ConsumerWidget {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Text(
-                              status.name.toUpperCase(),
+                              status.realName.toUpperCase(),
                               style: Theme.of(context).textTheme.titleMedium,
                             ),
                             SizedBox(width: 8),
@@ -73,6 +75,13 @@ class TaskBoardPage extends ConsumerWidget {
           }
           return null;
         },
+      ),
+      floatingActionButton: FloatingActionButton(
+        tooltip: 'Add Task',
+        onPressed: () {
+          context.go('/task/create');
+        },
+        child: const Icon(Icons.add_circle_outline_outlined, size: 28),
       ),
     );
   }

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 
+import '../../../shared/enum/enum.dart';
 import '../../domain/entities/task.dart';
 
 class TaskCard extends StatelessWidget {
@@ -22,63 +24,67 @@ class TaskCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
-      child: ListTile(
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(task.title),
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-              decoration: BoxDecoration(
-                color: _priorityColor(task.priority),
-                borderRadius: BorderRadius.circular(8),
+      child: InkWell(
+        onTap: () => context.go('/task/update', extra: task),
+        child: ListTile(
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(task.title),
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                decoration: BoxDecoration(
+                  color: _priorityColor(task.priority),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: Text(
+                  task.priority.name.toUpperCase(),
+                  style: Theme.of(
+                    context,
+                  ).textTheme.bodySmall!.copyWith(fontWeight: FontWeight.bold),
+                ),
               ),
-              child: Text(
-                task.priority.name.toUpperCase(),
-                style: Theme.of(
-                  context,
-                ).textTheme.bodySmall!.copyWith(fontWeight: FontWeight.bold),
-              ),
-            ),
-          ],
-        ),
-        subtitle: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            if (task.description != null)
-              Text(task.description!, style: TextStyle(fontSize: 12)),
-            Padding(
-              padding: const EdgeInsets.only(top: 2.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  if (task.assigneeId != null)
-                    Expanded(
-                      child: IconLabelValue(
-                        icon: Icons.assignment_ind_outlined,
-                        label: 'Assigned To',
-                        value: _getAssigneeName(task.assigneeId!),
+            ],
+          ),
+          subtitle: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              if (task.description != null)
+                Text(task.description!, style: TextStyle(fontSize: 12)),
+              Padding(
+                padding: const EdgeInsets.only(top: 2.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    if (task.assigneeId != null)
+                      Expanded(
+                        child: IconLabelValue(
+                          icon: Icons.assignment_ind_outlined,
+                          label: 'Assigned To',
+                          value: _getAssigneeName(task.assigneeId!),
+                        ),
                       ),
-                    ),
-                  if (task.deadline != null)
-                    Expanded(
-                      child: IconLabelValue(
-                        icon: Icons.access_time_outlined,
-                        label: 'Deadline',
-                        value: DateFormat(
-                          _getCustomDateFormat(task.deadline!),
-                        ).format(task.deadline!),
+                    if (task.deadline != null)
+                      Expanded(
+                        child: IconLabelValue(
+                          icon: Icons.access_time_outlined,
+                          label: 'Deadline',
+                          value: DateFormat(
+                            _getCustomDateFormat(task.deadline!),
+                          ).format(task.deadline!),
+                        ),
                       ),
-                    ),
-                ],
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
   }
 
+  //TODO: Replace with local storage response
   String _getAssigneeName(int id) {
     final team = {1: "Alice", 2: "Bob", 3: "Charlie", 4: "Diana", 5: "Rahul"};
     return team[id] ?? "Unassigned";

@@ -1,8 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-enum TaskStatus { todo, inProgress, done }
-
-enum TaskPriority { low, medium, high }
+import '../../../shared/enum/enum.dart';
 
 class Task extends Equatable {
   final int id;
@@ -14,9 +12,9 @@ class Task extends Equatable {
   final TaskStatus status;
   final DateTime createdAt;
   final DateTime? updatedAt;
-  final int? updatedBy;
 
   const Task({
+    //TODO: Need to check later while integrating isar as local storage
     required this.id,
     required this.title,
     this.description,
@@ -26,7 +24,6 @@ class Task extends Equatable {
     required this.status,
     required this.createdAt,
     this.updatedAt,
-    this.updatedBy,
   });
 
   Task copyWith({
@@ -37,7 +34,6 @@ class Task extends Equatable {
     TaskPriority? priority,
     TaskStatus? status,
     DateTime? updatedAt,
-    int? updatedBy,
   }) {
     return Task(
       id: id,
@@ -49,7 +45,6 @@ class Task extends Equatable {
       status: status ?? this.status,
       createdAt: createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
-      updatedBy: updatedBy ?? this.updatedBy,
     );
   }
 
@@ -64,6 +59,5 @@ class Task extends Equatable {
     status,
     createdAt,
     updatedAt,
-    updatedBy,
   ];
 }

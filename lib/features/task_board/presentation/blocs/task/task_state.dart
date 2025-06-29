@@ -20,3 +20,10 @@ class TaskError extends TaskState {
   @override
   List<Object?> get props => [message];
 }
+
+class SingleTaskLoaded extends TaskState {
+  final Task? task;
+  SingleTaskLoaded(this.task);
+  @override
+  List<Object?> get props => [task];
+}

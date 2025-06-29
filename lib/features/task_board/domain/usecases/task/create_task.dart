@@ -1,8 +1,8 @@
 import 'package:fpdart/fpdart.dart' hide Task;
 
-import '../../../shared/error/failure.dart';
-import '../entities/task.dart';
-import '../repositories/task_repository.dart';
+import '../../../../shared/error/failure.dart';
+import '../../entities/task.dart';
+import '../../repositories/task_repository.dart';
 
 class CreateTaskUseCase {
   final TaskRepository repository;

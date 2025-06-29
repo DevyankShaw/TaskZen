@@ -20,3 +20,10 @@ class UpdateTaskEvent extends TaskEvent {
   @override
   List<Object?> get props => [task];
 }
+
+class GetTaskByIdEvent extends TaskEvent {
+  final int taskId;
+  GetTaskByIdEvent(this.taskId);
+  @override
+  List<Object?> get props => [taskId];
+}

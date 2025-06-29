@@ -43,4 +43,15 @@ class TaskRepositoryImpl implements TaskRepository {
       return Either.left(ServerFailure('Failed to update task: $e'));
     }
   }
+
+  @override
+  Future<Either<Failure, Task?>> getTaskById(int taskId) async {
+    try {
+      final model = await localDataSource.getTaskById(taskId);
+      final task = model?.toEntity();
+      return Either.right(task);
+    } catch (e) {
+      return Either.left(ServerFailure('Failed to get task by id: $e'));
+    }
+  }
 }

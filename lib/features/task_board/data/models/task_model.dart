@@ -1,3 +1,4 @@
+import '../../../shared/enum/enum.dart';
 import '../../domain/entities/task.dart';
 
 class TaskModel {
@@ -10,7 +11,6 @@ class TaskModel {
   late TaskStatus status;
   late DateTime createdAt;
   DateTime? updatedAt;
-  int? updatedBy;
 
   TaskModel({
     //TODO: Remove once local storage integrated
@@ -23,7 +23,6 @@ class TaskModel {
     required this.status,
     DateTime? createdAt,
     this.updatedAt,
-    this.updatedBy,
   }) : createdAt = createdAt ?? DateTime.now();
 
   TaskModel.fromEntity(Task task) {
@@ -36,7 +35,6 @@ class TaskModel {
     status = task.status;
     createdAt = task.createdAt;
     updatedAt = task.updatedAt;
-    updatedBy = task.updatedBy;
   }
 
   Task toEntity() {
@@ -50,7 +48,6 @@ class TaskModel {
       status: status,
       createdAt: createdAt,
       updatedAt: updatedAt,
-      updatedBy: updatedBy,
     );
   }
 }
