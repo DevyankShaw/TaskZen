@@ -15,3 +15,7 @@ Day 2 | 29/6/25 | 11 Hr
    - Understand the importance of [Either](https://codewithandrea.com/articles/functional-error-handling-either-fpdart/), which makes it easy and enforceable for error handling at compile time
    - Applied the same strategy to implement the task form page to create/update a task
 
+Day 3 | 1/7/25 | 5 Hr
+   - Implementing search and filter functionality is a bit of decision-making, especially keeping track of searched/filtered keywords, whether using Bloc or Riverpod. But finally, make it using Riverpod, which was even testable
+   - Setting up Bloc Observer was helpful in debugging, as it showed what event and its input are being executed
+
