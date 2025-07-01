@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 
+import '../../../../router/routes.dart';
 import '../../../shared/enum/enum.dart';
 import '../../domain/entities/task.dart';
 
@@ -25,7 +26,7 @@ class TaskCard extends StatelessWidget {
     return Card(
       margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
       child: InkWell(
-        onTap: () => context.go('/task/update', extra: task),
+        onTap: () => context.goNamed(Routes.taskUpdate.toName, extra: task),
         child: ListTile(
           title: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,

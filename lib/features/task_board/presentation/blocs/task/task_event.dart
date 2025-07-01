@@ -27,3 +27,16 @@ class GetTaskByIdEvent extends TaskEvent {
   @override
   List<Object?> get props => [taskId];
 }
+
+class FilterTasksEvent extends TaskEvent {
+  final String? title;
+  final List<User> assignees;
+  final List<TaskPriority> priorities;
+  FilterTasksEvent({
+    this.title,
+    this.assignees = const [],
+    this.priorities = const [],
+  });
+  @override
+  List<Object?> get props => [title, assignees, priorities];
+}

@@ -1,4 +1,5 @@
 import 'package:fpdart/fpdart.dart' hide Task;
+import 'package:taskzen/features/shared/enum/enum.dart';
 import 'package:taskzen/features/task_board/data/sources/local_data_source.dart';
 import 'package:taskzen/features/task_board/domain/entities/task.dart';
 import 'package:taskzen/features/task_board/domain/repositories/task_repository.dart';
@@ -52,6 +53,25 @@ class TaskRepositoryImpl implements TaskRepository {
       return Either.right(task);
     } catch (e) {
       return Either.left(ServerFailure('Failed to get task by id: $e'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<Task>>> filterBy({
+    String? title,
+    List<int> assigneeIds = const [],
+    List<TaskPriority> priorities = const [],
+  }) async {
+    try {
+      final models = await localDataSource.filterBy(
+        title: title,
+        assigneeIds: assigneeIds,
+        priorities: priorities,
+      );
+      final tasks = models.map((model) => model.toEntity()).toList();
+      return Either.right(tasks);
+    } catch (e) {
+      return Either.left(ServerFailure('Failed to filter tasks: $e'));
     }
   }
 }

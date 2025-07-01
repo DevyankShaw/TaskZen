@@ -3,10 +3,11 @@ import '../../../../shared/error/failure.dart';
 import '../../entities/task.dart';
 import '../../repositories/task_repository.dart';
 
-class GetTaskByIdUseCase {
+//TODO: Remove at last if not required
+class GetTaskById {
   final TaskRepository repository;
 
-  GetTaskByIdUseCase(this.repository);
+  GetTaskById(this.repository);
 
   Future<Either<Failure, Task?>> call(int taskId) {
     return repository.getTaskById(taskId);

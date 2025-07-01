@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../shared/enum/enum.dart';
-import '../../domain/entities/task.dart';
+import '../../../../router/routes.dart';
 import '../blocs/task/task_bloc.dart';
 import '../providers/task/task_provider.dart';
-import '../widgets/task_card.dart';
+import '../widgets/group_task_layout.dart';
+import '../widgets/search_field.dart';
 
 class TaskBoardPage extends ConsumerWidget {
   const TaskBoardPage({super.key});
@@ -16,7 +16,12 @@ class TaskBoardPage extends ConsumerWidget {
     final state = ref.watch(taskStateProvider);
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Task Board')),
+      appBar: AppBar(
+        titleTextStyle: Theme.of(
+          context,
+        ).textTheme.bodyLarge?.copyWith(fontSize: 18),
+        title: const Text('Task Board'),
+      ),
       body: state.when(
         loading: () => const Center(child: CircularProgressIndicator()),
         error: (err, stack) => Center(
@@ -30,40 +35,11 @@ class TaskBoardPage extends ConsumerWidget {
             case TaskLoading():
               return const Center(child: CircularProgressIndicator());
             case TaskLoaded():
-              final groupedTasks = _groupTasksByStatus(taskState.tasks);
-              return ListView.builder(
-                itemCount: groupedTasks.length,
-                itemBuilder: (context, index) {
-                  final status = groupedTasks.keys.elementAt(index);
-                  final taskList = groupedTasks[status]!;
-
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                          vertical: 12.0,
-                          horizontal: 16.0,
-                        ),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Text(
-                              status.realName.toUpperCase(),
-                              style: Theme.of(context).textTheme.titleMedium,
-                            ),
-                            SizedBox(width: 8),
-                            Badge.count(
-                              count: taskList.length,
-                              textStyle: Theme.of(context).textTheme.bodyMedium,
-                            ),
-                          ],
-                        ),
-                      ),
-                      ...taskList.map((task) => TaskCard(task)),
-                    ],
-                  );
-                },
+              return Column(
+                children: [
+                  SearchField(),
+                  GroupTaskLayout(tasks: taskState.tasks),
+                ],
               );
             case TaskError():
               return Center(
@@ -79,18 +55,10 @@ class TaskBoardPage extends ConsumerWidget {
       floatingActionButton: FloatingActionButton(
         tooltip: 'Add Task',
         onPressed: () {
-          context.go('/task/create');
+          context.goNamed(Routes.taskCreate.toName);
         },
         child: const Icon(Icons.add_circle_outline_outlined, size: 28),
       ),
     );
-  }
-
-  Map<TaskStatus, List<Task>> _groupTasksByStatus(List<Task> tasks) {
-    final map = <TaskStatus, List<Task>>{};
-    for (var status in TaskStatus.values) {
-      map[status] = tasks.where((t) => t.status == status).toList();
-    }
-    return map;
   }
 }

@@ -81,6 +81,7 @@ class _TaskFormPageState extends ConsumerState<TaskFormPage> {
       );
       bloc.add(UpdateTaskEvent(task));
     }
+    //TODO: Need to find way to rebuild with filtered values or reset it post add/update task
 
     context.pop(context);
   }
@@ -103,7 +104,10 @@ class _TaskFormPageState extends ConsumerState<TaskFormPage> {
 
     return Scaffold(
       appBar: AppBar(
-        titleTextStyle: Theme.of(context).textTheme.bodyLarge,
+        titleTextStyle: Theme.of(
+          context,
+        ).textTheme.bodyLarge?.copyWith(fontSize: 18),
+
         titleSpacing: 0,
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -116,6 +120,9 @@ class _TaskFormPageState extends ConsumerState<TaskFormPage> {
                   DateFormat(
                     'dd MMMM, yyyy hh:mm a',
                   ).format(widget.task!.updatedAt ?? widget.task!.createdAt),
+                  style: Theme.of(
+                    context,
+                  ).textTheme.bodyLarge?.copyWith(fontSize: 14),
                 ),
               ),
           ],

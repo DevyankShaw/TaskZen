@@ -1,5 +1,6 @@
 import 'package:fpdart/fpdart.dart' hide Task;
 
+import '../../../shared/enum/enum.dart';
 import '../../../shared/error/failure.dart';
 import '../entities/task.dart';
 
@@ -8,4 +9,9 @@ abstract class TaskRepository {
   Future<Either<Failure, void>> createTask(Task task);
   Future<Either<Failure, void>> updateTask(Task task);
   Future<Either<Failure, Task?>> getTaskById(int taskId);
+  Future<Either<Failure, List<Task>>> filterBy({
+    String? title,
+    List<int> assigneeIds,
+    List<TaskPriority> priorities,
+  });
 }

@@ -3,10 +3,10 @@ import '../../../../shared/error/failure.dart';
 import '../../entities/task.dart';
 import '../../repositories/task_repository.dart';
 
-class GetTasksUseCase {
+class GetTasks {
   final TaskRepository repository;
 
-  GetTasksUseCase(this.repository);
+  GetTasks(this.repository);
 
   Future<Either<Failure, List<Task>>> call() {
     return repository.getTasks();

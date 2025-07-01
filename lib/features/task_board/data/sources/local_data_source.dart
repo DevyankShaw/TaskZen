@@ -175,4 +175,49 @@ class LocalDataSource {
       rethrow;
     }
   }
+
+  // Filter tasks by title or assignee or priority
+  Future<List<TaskModel>> filterBy({
+    String? title,
+    List<int> assigneeIds = const [],
+    List<TaskPriority> priorities = const [],
+  }) async {
+    try {
+      var filteredTasks = <TaskModel>[];
+
+      if (title?.isNotEmpty ?? false) {
+        filteredTasks = taskModelist
+            .where((task) => task.title.toLowerCase().contains(title!))
+            .toList();
+      }
+
+      if (assigneeIds.isNotEmpty) {
+        if (filteredTasks.isNotEmpty) {
+          filteredTasks = filteredTasks
+              .where((task) => assigneeIds.contains(task.assigneeId))
+              .toList();
+        } else {
+          filteredTasks = taskModelist
+              .where((task) => assigneeIds.contains(task.assigneeId))
+              .toList();
+        }
+      }
+
+      if (priorities.isNotEmpty) {
+        if (filteredTasks.isNotEmpty) {
+          filteredTasks = filteredTasks
+              .where((task) => priorities.contains(task.priority))
+              .toList();
+        } else {
+          filteredTasks = taskModelist
+              .where((task) => priorities.contains(task.priority))
+              .toList();
+        }
+      }
+
+      return filteredTasks;
+    } catch (_) {
+      rethrow;
+    }
+  }
 }
