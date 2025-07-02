@@ -19,3 +19,6 @@ Day 3 | 1/7/25 | 5 Hr
    - Implementing search and filter functionality is a bit of decision-making, especially keeping track of searched/filtered keywords, whether using Bloc or Riverpod. But finally, make it using Riverpod, which was even testable
    - Setting up Bloc Observer was helpful in debugging, as it showed what event and its input are being executed
 
+Day 4 | 2/7/25 | 3 Hr
+   - Trying to implement offline mode using [Isar](https://pub.dev/packages/isar) as local storage. Facing a few challenges in binding it with the existing structure.
+
