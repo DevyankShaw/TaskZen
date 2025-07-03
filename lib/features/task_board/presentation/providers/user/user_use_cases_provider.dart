@@ -10,9 +10,9 @@ import 'user_repository_provider.dart';
 final userUseCasesProvider = Provider((ref) {
   final repo = ref.watch(userRepositoryProvider);
   return UserUseCases(
-    getUsers: GetUsersUseCase(repo),
-    createUser: CreateUserUseCase(repo),
-    updateUser: UpdateUserUseCase(repo),
-    getUserById: GetUserByIdUseCase(repo),
+    getUsers: GetUsers(repo),
+    createUser: CreateUser(repo),
+    updateUser: UpdateUser(repo),
+    getUserById: GetUserById(repo),
   );
 });

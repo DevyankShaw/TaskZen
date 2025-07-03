@@ -4,10 +4,10 @@ import '../../../../shared/error/failure.dart';
 import '../../entities/user.dart';
 import '../../repositories/user_repository.dart';
 
-class CreateUserUseCase {
+class CreateUser {
   final UserRepository repository;
 
-  CreateUserUseCase(this.repository);
+  CreateUser(this.repository);
 
   Future<Either<Failure, void>> call(User user) {
     return repository.createUser(user);

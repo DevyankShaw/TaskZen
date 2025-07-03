@@ -4,10 +4,10 @@ import 'get_users.dart';
 import 'update_user.dart';
 
 class UserUseCases {
-  final GetUsersUseCase getUsers;
-  final CreateUserUseCase createUser;
-  final UpdateUserUseCase updateUser;
-  final GetUserByIdUseCase getUserById;
+  final GetUsers getUsers;
+  final CreateUser createUser;
+  final UpdateUser updateUser;
+  final GetUserById getUserById;
 
   UserUseCases({
     required this.getUsers,

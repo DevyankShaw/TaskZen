@@ -1,93 +1,13 @@
 import '../../../shared/enum/enum.dart';
+import '../../../shared/mock/mock_data.dart';
 import '../models/task_model.dart';
 import '../models/user_model.dart';
 
 class LocalDataSource {
-  late final userModelList = <UserModel>[
-    UserModel(
-      userId: 1,
-      name: 'Alice',
-      email: 'alice@gmail.com',
-      role: Role.designer,
-    ),
-    UserModel(
-      userId: 2,
-      name: 'Bob',
-      email: 'bob@gmail.com',
-      role: Role.developer,
-    ),
-    UserModel(
-      userId: 3,
-      name: 'Charlie',
-      email: 'charlie@gmail.com',
-      role: Role.developer,
-    ),
-    UserModel(
-      userId: 4,
-      name: 'Diana',
-      email: 'diana@gmail.com',
-      role: Role.productOwner,
-    ),
-    UserModel(
-      userId: 5,
-      name: 'Rahul',
-      email: 'rahul@gmail.com',
-      role: Role.tester,
-    ),
-  ];
-
-  late final taskModelist = <TaskModel>[
-    TaskModel(
-      taskId: 1,
-      title: 'Design login screen',
-      assignee: userModelList.singleWhere((element) => element.userId == 1),
-      deadline: DateTime.now().add(Duration(days: 2)),
-      priority: TaskPriority.medium,
-      status: TaskStatus.todo,
-    ),
-    TaskModel(
-      taskId: 2,
-      title: 'Implement API integration',
-      priority: TaskPriority.low,
-      status: TaskStatus.todo,
-    ),
-    TaskModel(
-      taskId: 3,
-      title: 'Fix logout bug',
-      description:
-          'As soon as user login and tries to logout showing Something went wrong',
-      deadline: DateTime.now().add(Duration(days: 1)),
-      assignee: userModelList.singleWhere((element) => element.userId == 2),
-      priority: TaskPriority.high,
-      status: TaskStatus.inProgress,
-      createdAt: DateTime.now().subtract(Duration(days: 1)),
-      updatedAt: DateTime.now(),
-    ),
-    TaskModel(
-      taskId: 4,
-      title: 'Update onboarding docs',
-      assignee: userModelList.singleWhere((element) => element.userId == 4),
-      priority: TaskPriority.low,
-      status: TaskStatus.done,
-      createdAt: DateTime.now().subtract(Duration(days: 3)),
-      updatedAt: DateTime.now().subtract(Duration(days: 2)),
-    ),
-    TaskModel(
-      taskId: 5,
-      title: 'Refactor task bloc logic',
-      assignee: userModelList.singleWhere((element) => element.userId == 3),
-      deadline: DateTime.now().add(Duration(days: 2)),
-      priority: TaskPriority.high,
-      status: TaskStatus.done,
-      createdAt: DateTime.now().subtract(Duration(days: 4)),
-      updatedAt: DateTime.now().subtract(Duration(days: 2)),
-    ),
-  ];
-
   // Get all tasks
   Future<List<TaskModel>> getTasks() async {
     try {
-      return taskModelist;
+      return mockTaskModelist;
     } catch (_) {
       rethrow;
     }
@@ -96,7 +16,7 @@ class LocalDataSource {
   // create task
   Future<void> createTask(TaskModel taskModel) async {
     try {
-      taskModelist.add(taskModel);
+      mockTaskModelist.add(taskModel);
     } catch (e) {
       rethrow;
     }
@@ -105,10 +25,15 @@ class LocalDataSource {
   // update task
   Future<void> updateTask(TaskModel taskModel) async {
     try {
-      final upateIndex = taskModelist.indexWhere(
+      final updateIndex = mockTaskModelist.indexWhere(
         (element) => element.taskId == taskModel.taskId,
       );
-      taskModelist[upateIndex] = taskModel;
+
+      if (updateIndex == -1) {
+        throw Exception('Task with taskId ${taskModel.taskId} doesn\'t exists');
+      }
+
+      mockTaskModelist[updateIndex] = taskModel;
     } catch (e) {
       rethrow;
     }
@@ -117,11 +42,11 @@ class LocalDataSource {
   // get task by id
   Future<TaskModel?> getTaskById(int taskId) async {
     try {
-      final searchIndex = taskModelist.indexWhere(
+      final searchIndex = mockTaskModelist.indexWhere(
         (element) => element.taskId == taskId,
       );
       if (searchIndex != -1) {
-        return taskModelist[searchIndex - 1];
+        return mockTaskModelist[searchIndex - 1];
       } else {
         return null;
       }
@@ -133,7 +58,7 @@ class LocalDataSource {
   // Get all users
   Future<List<UserModel>> getUsers() async {
     try {
-      return userModelList;
+      return mockUserModelList;
     } catch (_) {
       rethrow;
     }
@@ -142,7 +67,7 @@ class LocalDataSource {
   // create user
   Future<void> createUser(UserModel userModel) async {
     try {
-      userModelList.add(userModel);
+      mockUserModelList.add(userModel);
     } catch (e) {
       rethrow;
     }
@@ -151,10 +76,15 @@ class LocalDataSource {
   // update user
   Future<void> updateUser(UserModel userModel) async {
     try {
-      final upateIndex = userModelList.indexWhere(
+      final updateIndex = mockUserModelList.indexWhere(
         (element) => element.userId == userModel.userId,
       );
-      userModelList[upateIndex] = userModel;
+
+      if (updateIndex == -1) {
+        throw Exception('User with userId ${userModel.userId} doesn\'t exists');
+      }
+
+      mockUserModelList[updateIndex] = userModel;
     } catch (e) {
       rethrow;
     }
@@ -163,11 +93,11 @@ class LocalDataSource {
   // Get user by id
   Future<UserModel?> getUserById(int userId) async {
     try {
-      final searchIndex = userModelList.indexWhere(
+      final searchIndex = mockUserModelList.indexWhere(
         (element) => element.userId == userId,
       );
       if (searchIndex != -1) {
-        return userModelList[searchIndex - 1];
+        return mockUserModelList[searchIndex - 1];
       } else {
         return null;
       }
@@ -186,7 +116,7 @@ class LocalDataSource {
       var filteredTasks = <TaskModel>[];
 
       if (title?.isNotEmpty ?? false) {
-        filteredTasks = taskModelist
+        filteredTasks = mockTaskModelist
             .where((task) => task.title.toLowerCase().contains(title!))
             .toList();
       }
@@ -201,7 +131,7 @@ class LocalDataSource {
               )
               .toList();
         } else {
-          filteredTasks = taskModelist
+          filteredTasks = mockTaskModelist
               .where(
                 (task) => assignees.any(
                   (element) => element.userId == task.assignee?.userId,
@@ -217,7 +147,7 @@ class LocalDataSource {
               .where((task) => priorities.contains(task.priority))
               .toList();
         } else {
-          filteredTasks = taskModelist
+          filteredTasks = mockTaskModelist
               .where((task) => priorities.contains(task.priority))
               .toList();
         }

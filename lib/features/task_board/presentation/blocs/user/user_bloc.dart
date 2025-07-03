@@ -31,7 +31,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
   Future<void> _onAdd(AddUserEvent event, Emitter<UserState> emit) async {
     final result = await useCases.createUser(event.user);
     result.fold(
-      (fail) => UserError(fail.message),
+      (fail) => emit(UserError(fail.message)),
       (_) => add(LoadUsersEvent()),
     );
   }
@@ -39,7 +39,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
   Future<void> _onUpdate(UpdateUserEvent event, Emitter<UserState> emit) async {
     final result = await useCases.updateUser(event.user);
     result.fold(
-      (fail) => UserError(fail.message),
+      (fail) => emit(UserError(fail.message)),
       (_) => add(LoadUsersEvent()),
     );
   }
@@ -49,9 +49,11 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     Emitter<UserState> emit,
   ) async {
     final result = await useCases.getUserById(event.userId);
-    result.fold(
-      (fail) => UserError(fail.message),
-      (user) => SingleUserLoaded(user),
+    emit(
+      result.fold(
+        (fail) => UserError(fail.message),
+        (user) => SingleUserLoaded(user),
+      ),
     );
   }
 }
