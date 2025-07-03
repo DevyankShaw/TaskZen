@@ -22,3 +22,8 @@ Day 3 | 1/7/25 | 5 Hr
 Day 4 | 2/7/25 | 3 Hr
    - Trying to implement offline mode using [Isar](https://pub.dev/packages/isar) as local storage. Facing a few challenges in binding it with the existing structure.
 
+Day 5 | 3/7/25 | 6 Hr
+   - Added unit test for two blocs and widget test for one widget
+   - Initially, I found myself stuck on setting up mock responses for use cases/repositories being invoked inside bloc event handlers. Later, resolved by changing the package to Mocktail from Mockito
+   - Finally done some cleaning up and organising activities
+
