@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 
 import '../../../shared/enum/enum.dart';
 import '../../domain/entities/task.dart';
+import '../../domain/entities/user.dart';
 import '../blocs/task/task_bloc.dart';
 import '../blocs/user/user_bloc.dart';
 import '../providers/task/task_provider.dart';
@@ -27,7 +28,7 @@ class _TaskFormPageState extends ConsumerState<TaskFormPage> {
   TaskPriority _priority = TaskPriority.low;
   TaskStatus _status = TaskStatus.todo;
   DateTime? _deadline;
-  int? _assigneeId;
+  User? _assignee;
 
   final dateFormat = DateFormat('dd/MM/yyyy hh:mm a');
 
@@ -45,7 +46,7 @@ class _TaskFormPageState extends ConsumerState<TaskFormPage> {
           ? dateFormat.format(widget.task!.deadline!)
           : '';
       _deadline = widget.task!.deadline;
-      _assigneeId = widget.task!.assigneeId;
+      _assignee = widget.task!.assignee;
       _priority = widget.task!.priority;
       _status = widget.task!.status;
     }
@@ -62,7 +63,7 @@ class _TaskFormPageState extends ConsumerState<TaskFormPage> {
         id: now.millisecondsSinceEpoch,
         title: _titleController.text.trim(),
         description: _descriptionController.text.trim(),
-        assigneeId: _assigneeId,
+        assignee: _assignee,
         deadline: _deadline,
         priority: _priority,
         status: _status,
@@ -73,7 +74,7 @@ class _TaskFormPageState extends ConsumerState<TaskFormPage> {
       final task = widget.task!.copyWith(
         title: _titleController.text.trim(),
         description: _descriptionController.text.trim(),
-        assigneeId: _assigneeId,
+        assignee: _assignee,
         deadline: _deadline,
         priority: _priority,
         status: _status,
@@ -91,7 +92,7 @@ class _TaskFormPageState extends ConsumerState<TaskFormPage> {
     _titleController.dispose();
     _descriptionController.dispose();
     _deadlineController.dispose();
-    _assigneeId = null;
+    _assignee = null;
     _deadline = null;
     _priority = TaskPriority.low;
     _status = TaskStatus.todo;
@@ -145,6 +146,7 @@ class _TaskFormPageState extends ConsumerState<TaskFormPage> {
                 padding: const EdgeInsets.all(16),
                 child: Form(
                   key: _formKey,
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
                   child: ListView(
                     children: [
                       TextFormField(
@@ -163,17 +165,17 @@ class _TaskFormPageState extends ConsumerState<TaskFormPage> {
                         style: Theme.of(context).textTheme.titleMedium,
                       ),
                       const SizedBox(height: 12),
-                      DropdownButtonFormField<int>(
-                        value: _assigneeId,
+                      DropdownButtonFormField<User>(
+                        value: _assignee,
                         items: userState.users
                             .map(
                               (m) => DropdownMenuItem(
-                                value: m.id,
+                                value: m,
                                 child: Text('${m.name} (${m.role.realName})'),
                               ),
                             )
                             .toList(),
-                        onChanged: (val) => _assigneeId = val,
+                        onChanged: (val) => _assignee = val,
                         decoration: const InputDecoration(
                           labelText: 'Assignee',
                         ),

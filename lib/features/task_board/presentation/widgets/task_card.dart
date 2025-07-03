@@ -57,12 +57,12 @@ class TaskCard extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    if (task.assigneeId != null)
+                    if (task.assignee != null)
                       Expanded(
                         child: IconLabelValue(
                           icon: Icons.assignment_ind_outlined,
                           label: 'Assigned To',
-                          value: _getAssigneeName(task.assigneeId!),
+                          value: task.assignee!.name,
                         ),
                       ),
                     if (task.deadline != null)
@@ -83,12 +83,6 @@ class TaskCard extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  //TODO: Replace with local storage response
-  String _getAssigneeName(int id) {
-    final team = {1: "Alice", 2: "Bob", 3: "Charlie", 4: "Diana", 5: "Rahul"};
-    return team[id] ?? "Unassigned";
   }
 
   String _getCustomDateFormat(DateTime deadline) {

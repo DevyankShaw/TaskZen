@@ -2,6 +2,7 @@ import 'package:fpdart/fpdart.dart' hide Task;
 import '../../../../shared/enum/enum.dart';
 import '../../../../shared/error/failure.dart';
 import '../../entities/task.dart';
+import '../../entities/user.dart';
 import '../../repositories/task_repository.dart';
 
 class FilterTasks {
@@ -11,12 +12,12 @@ class FilterTasks {
 
   Future<Either<Failure, List<Task>>> call({
     String? title,
-    List<int> assigneeIds = const [],
+    List<User> assignees = const [],
     List<TaskPriority> priorities = const [],
   }) async {
     return repository.filterBy(
       title: title,
-      assigneeIds: assigneeIds,
+      assignees: assignees,
       priorities: priorities,
     );
   }

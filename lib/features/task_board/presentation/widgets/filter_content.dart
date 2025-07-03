@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:taskzen/features/task_board/domain/entities/user.dart';
 
 import '../../../shared/enum/enum.dart';
+import '../../domain/entities/user.dart';
 import '../blocs/task/task_bloc.dart';
 import '../blocs/user/user_bloc.dart';
 import '../providers/filter/filter_provider.dart';

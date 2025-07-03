@@ -1,5 +1,5 @@
 import 'package:go_router/go_router.dart';
-import 'package:taskzen/features/task_board/domain/entities/task.dart';
+import '../features/task_board/domain/entities/task.dart';
 import '../features/task_board/presentation/pages/task_board_page.dart';
 import '../features/task_board/presentation/pages/task_form_page.dart';
 import 'routes.dart';

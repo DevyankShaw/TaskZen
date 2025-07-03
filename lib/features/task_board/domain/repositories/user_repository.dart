@@ -1,7 +1,7 @@
 import 'package:fpdart/fpdart.dart' hide Task;
-import 'package:taskzen/features/task_board/domain/entities/user.dart';
 
 import '../../../shared/error/failure.dart';
+import '../entities/user.dart';
 
 abstract class UserRepository {
   Future<Either<Failure, List<User>>> getUsers();

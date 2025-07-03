@@ -1,8 +1,7 @@
 import 'package:fpdart/fpdart.dart';
-import 'package:taskzen/features/shared/error/failure.dart';
 
-import 'package:taskzen/features/task_board/domain/entities/user.dart';
-
+import '../../../shared/error/failure.dart';
+import '../../domain/entities/user.dart';
 import '../../domain/repositories/user_repository.dart';
 import '../models/user_model.dart';
 import '../sources/local_data_source.dart';

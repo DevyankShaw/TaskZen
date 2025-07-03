@@ -1,11 +1,12 @@
 import '../../../shared/enum/enum.dart';
 import '../../domain/entities/task.dart';
+import 'user_model.dart';
 
 class TaskModel {
   late int taskId;
   late String title;
   String? description;
-  int? assigneeId;
+  UserModel? assignee;
   DateTime? deadline;
   late TaskPriority priority;
   late TaskStatus status;
@@ -17,7 +18,7 @@ class TaskModel {
     required this.taskId,
     required this.title,
     this.description,
-    this.assigneeId,
+    this.assignee,
     this.deadline,
     required this.priority,
     required this.status,
@@ -29,7 +30,9 @@ class TaskModel {
     taskId = task.id;
     title = task.title;
     description = task.description;
-    assigneeId = task.assigneeId;
+    assignee = task.assignee != null
+        ? UserModel.fromEntity(task.assignee!)
+        : null;
     deadline = task.deadline;
     priority = task.priority;
     status = task.status;
@@ -42,7 +45,7 @@ class TaskModel {
       id: taskId,
       title: title,
       description: description,
-      assigneeId: assigneeId,
+      assignee: assignee?.toEntity(),
       deadline: deadline,
       priority: priority,
       status: status,

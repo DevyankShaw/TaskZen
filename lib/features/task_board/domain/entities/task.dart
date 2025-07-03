@@ -1,12 +1,13 @@
 import 'package:equatable/equatable.dart';
 
 import '../../../shared/enum/enum.dart';
+import 'user.dart';
 
 class Task extends Equatable {
   final int id;
   final String title;
   final String? description;
-  final int? assigneeId;
+  final User? assignee;
   final DateTime? deadline;
   final TaskPriority priority;
   final TaskStatus status;
@@ -18,7 +19,7 @@ class Task extends Equatable {
     required this.id,
     required this.title,
     this.description,
-    this.assigneeId,
+    this.assignee,
     this.deadline,
     required this.priority,
     required this.status,
@@ -29,7 +30,7 @@ class Task extends Equatable {
   Task copyWith({
     String? title,
     String? description,
-    int? assigneeId,
+    User? assignee,
     DateTime? deadline,
     TaskPriority? priority,
     TaskStatus? status,
@@ -39,7 +40,7 @@ class Task extends Equatable {
       id: id,
       title: title ?? this.title,
       description: description ?? this.description,
-      assigneeId: assigneeId ?? this.assigneeId,
+      assignee: assignee ?? this.assignee,
       deadline: deadline ?? this.deadline,
       priority: priority ?? this.priority,
       status: status ?? this.status,
@@ -53,7 +54,7 @@ class Task extends Equatable {
     id,
     title,
     description,
-    assigneeId,
+    assignee,
     deadline,
     priority,
     status,

@@ -1,11 +1,13 @@
 import 'package:fpdart/fpdart.dart' hide Task;
-import 'package:taskzen/features/shared/enum/enum.dart';
-import 'package:taskzen/features/task_board/data/sources/local_data_source.dart';
-import 'package:taskzen/features/task_board/domain/entities/task.dart';
-import 'package:taskzen/features/task_board/domain/repositories/task_repository.dart';
 
+import '../../../shared/enum/enum.dart';
 import '../../../shared/error/failure.dart';
+import '../../domain/entities/task.dart';
+import '../../domain/entities/user.dart';
+import '../../domain/repositories/task_repository.dart';
 import '../models/task_model.dart';
+import '../models/user_model.dart';
+import '../sources/local_data_source.dart';
 
 class TaskRepositoryImpl implements TaskRepository {
   final LocalDataSource localDataSource;
@@ -59,13 +61,15 @@ class TaskRepositoryImpl implements TaskRepository {
   @override
   Future<Either<Failure, List<Task>>> filterBy({
     String? title,
-    List<int> assigneeIds = const [],
+    List<User> assignees = const [],
     List<TaskPriority> priorities = const [],
   }) async {
     try {
       final models = await localDataSource.filterBy(
         title: title,
-        assigneeIds: assigneeIds,
+        assignees: assignees
+            .map((assignee) => UserModel.fromEntity(assignee))
+            .toList(),
         priorities: priorities,
       );
       final tasks = models.map((model) => model.toEntity()).toList();

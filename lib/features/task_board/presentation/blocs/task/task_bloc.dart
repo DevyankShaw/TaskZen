@@ -67,7 +67,7 @@ class TaskBloc extends Bloc<TaskEvent, TaskState> {
     emit(TaskLoading());
     final result = await useCases.filterTasks(
       title: event.title,
-      assigneeIds: event.assignees.map((e) => e.id).toList(),
+      assignees: event.assignees,
       priorities: event.priorities,
     );
     emit(
