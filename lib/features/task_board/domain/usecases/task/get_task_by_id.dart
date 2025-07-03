@@ -3,7 +3,6 @@ import '../../../../shared/error/failure.dart';
 import '../../entities/task.dart';
 import '../../repositories/task_repository.dart';
 
-//TODO: Remove at last if not required
 class GetTaskById {
   final TaskRepository repository;
 

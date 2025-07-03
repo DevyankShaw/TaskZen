@@ -14,7 +14,7 @@ class TaskModel {
   DateTime? updatedAt;
 
   TaskModel({
-    //TODO: Remove once local storage integrated
+    //TODO: Recheck for auto increment applied here or inherit from entity
     required this.taskId,
     required this.title,
     this.description,

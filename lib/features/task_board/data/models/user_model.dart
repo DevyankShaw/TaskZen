@@ -8,7 +8,7 @@ class UserModel {
   late Role role;
 
   UserModel({
-    //TODO: Remove once local storage integrated
+    //TODO: Recheck for auto increment applied here or inherit from entity
     required this.userId,
     required this.name,
     required this.email,

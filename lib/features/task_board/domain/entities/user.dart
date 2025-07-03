@@ -9,7 +9,7 @@ class User extends Equatable {
   final Role role;
 
   const User({
-    //TODO: Need to check later while integrating isar as local storage
+    //TODO: Need to check for auto increment during local storage integration 
     required this.id,
     required this.name,
     required this.email,
