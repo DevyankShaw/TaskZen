@@ -1,21 +1,21 @@
-import 'package:equatable/equatable.dart';
+import 'package:isar/isar.dart';
 
 import '../../../shared/enum/enum.dart';
 
-class User extends Equatable {
-  final int id;
+part 'user.g.dart';
+
+@collection
+class User {
+  final Id id;
   final String name;
   final String email;
+  @enumerated
   final Role role;
 
   const User({
-    //TODO: Need to check for auto increment during local storage integration 
-    required this.id,
+    this.id = Isar.autoIncrement,
     required this.name,
     required this.email,
     required this.role,
   });
-
-  @override
-  List<Object> get props => [id, name, email, role];
 }

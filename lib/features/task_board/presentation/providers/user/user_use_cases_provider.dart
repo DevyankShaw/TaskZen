@@ -7,8 +7,8 @@ import '../../../domain/usecases/user/update_user.dart';
 import '../../../domain/usecases/user/user_use_cases.dart';
 import 'user_repository_provider.dart';
 
-final userUseCasesProvider = Provider((ref) {
-  final repo = ref.watch(userRepositoryProvider);
+final userUseCasesProvider = FutureProvider((ref) async {
+  final repo = await ref.watch(userRepositoryProvider.future);
   return UserUseCases(
     getUsers: GetUsers(repo),
     createUser: CreateUser(repo),

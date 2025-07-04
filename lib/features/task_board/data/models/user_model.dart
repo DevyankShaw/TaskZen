@@ -1,28 +1,10 @@
-import '../../../shared/enum/enum.dart';
 import '../../domain/entities/user.dart';
 
-class UserModel {
-  late int userId;
-  late String name;
-  late String email;
-  late Role role;
-
+class UserModel extends User {
   UserModel({
-    //TODO: Recheck for auto increment applied here or inherit from entity
-    required this.userId,
-    required this.name,
-    required this.email,
-    required this.role,
+    super.id,
+    required super.name,
+    required super.email,
+    required super.role,
   });
-
-  UserModel.fromEntity(User user) {
-    userId = user.id;
-    name = user.name;
-    email = user.email;
-    role = user.role;
-  }
-
-  User toEntity() {
-    return User(id: userId, name: name, email: email, role: role);
-  }
 }

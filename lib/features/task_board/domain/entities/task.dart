@@ -1,25 +1,28 @@
-import 'package:equatable/equatable.dart';
+import 'package:isar/isar.dart';
 
 import '../../../shared/enum/enum.dart';
 import 'user.dart';
 
-class Task extends Equatable {
-  final int id;
+part 'task.g.dart';
+
+@collection
+class Task {
+  final Id id;
   final String title;
   final String? description;
-  final User? assignee;
   final DateTime? deadline;
+  @enumerated
   final TaskPriority priority;
+  @enumerated
   final TaskStatus status;
   final DateTime createdAt;
   final DateTime? updatedAt;
+  final IsarLink<User> assignee = IsarLink<User>();
 
-  const Task({
-    //TODO: Need to check for auto increment during local storage integration 
-    required this.id,
+  Task({
+    this.id = Isar.autoIncrement,
     required this.title,
     this.description,
-    this.assignee,
     this.deadline,
     required this.priority,
     required this.status,
@@ -36,29 +39,17 @@ class Task extends Equatable {
     TaskStatus? status,
     DateTime? updatedAt,
   }) {
-    return Task(
+    final task = Task(
       id: id,
       title: title ?? this.title,
       description: description ?? this.description,
-      assignee: assignee ?? this.assignee,
       deadline: deadline ?? this.deadline,
       priority: priority ?? this.priority,
       status: status ?? this.status,
       createdAt: createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
     );
+    task.assignee.value = assignee ?? this.assignee.value;
+    return task;
   }
-
-  @override
-  List<Object?> get props => [
-    id,
-    title,
-    description,
-    assignee,
-    deadline,
-    priority,
-    status,
-    createdAt,
-    updatedAt,
-  ];
 }

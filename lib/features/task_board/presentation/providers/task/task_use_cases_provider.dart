@@ -8,8 +8,8 @@ import '../../../domain/usecases/task/task_use_cases.dart';
 import '../../../domain/usecases/task/update_task.dart';
 import 'task_repository_provider.dart';
 
-final taskUseCasesProvider = Provider((ref) {
-  final repo = ref.watch(taskRepositoryProvider);
+final taskUseCasesProvider = FutureProvider((ref) async {
+  final repo = await ref.watch(taskRepositoryProvider.future);
   return TaskUseCases(
     getTasks: GetTasks(repo),
     createTask: CreateTask(repo),
