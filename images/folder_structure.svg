@@ -1,0 +1,119 @@
+<svg viewBox="0 0 1000 800" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="1000" height="800" fill="#2c3e50"/>
+  
+  <!-- Title -->
+  <text x="500" y="30" text-anchor="middle" font-family="Consolas, monospace" font-size="20" font-weight="bold" fill="#ecf0f1">Flutter Clean Architecture - Folder Structure</text>
+  
+  <!-- Main lib folder -->
+  <g id="lib-folder">
+    <rect x="50" y="60" width="900" height="720" fill="#34495e" stroke="#3498db" stroke-width="2" rx="5"/>
+    <text x="60" y="80" font-family="Consolas, monospace" font-size="16" font-weight="bold" fill="#3498db">📁 lib/</text>
+    
+    <!-- Features folder -->
+    <g id="features">
+      <rect x="80" y="100" width="840" height="580" fill="#2c3e50" stroke="#e74c3c" stroke-width="1" rx="3"/>
+      <text x="90" y="120" font-family="Consolas, monospace" font-size="14" font-weight="bold" fill="#e74c3c">📁 features/</text>
+      
+      <!-- Shared folder -->
+      <g id="shared">
+        <rect x="110" y="140" width="800" height="520" fill="#34495e" stroke="#9b59b6" stroke-width="1" rx="3"/>
+        <text x="120" y="160" font-family="Consolas, monospace" font-size="12" font-weight="bold" fill="#9b59b6">📁 shared/</text>
+        
+        <!-- Enums -->
+        <rect x="140" y="180" width="200" height="40" fill="#8e44ad" stroke="#9b59b6" stroke-width="1" rx="3"/>
+        <text x="150" y="200" font-family="Consolas, monospace" font-size="11" fill="#ecf0f1">📁 enum/</text>
+        <text x="160" y="215" font-family="Consolas, monospace" font-size="10" fill="#bdc3c7">📄 enum.dart</text>
+        
+        <!-- Error -->
+        <rect x="360" y="180" width="200" height="40" fill="#8e44ad" stroke="#9b59b6" stroke-width="1" rx="3"/>
+        <text x="370" y="200" font-family="Consolas, monospace" font-size="11" fill="#ecf0f1">📁 error/</text>
+        <text x="380" y="215" font-family="Consolas, monospace" font-size="10" fill="#bdc3c7">📄 failure.dart</text>
+        
+        <!-- Mock -->
+        <rect x="580" y="180" width="200" height="40" fill="#8e44ad" stroke="#9b59b6" stroke-width="1" rx="3"/>
+        <text x="590" y="200" font-family="Consolas, monospace" font-size="11" fill="#ecf0f1">📁 mock/</text>
+        <text x="600" y="215" font-family="Consolas, monospace" font-size="10" fill="#bdc3c7">📄 mock_data.dart</text>
+        
+        <!-- Theme -->
+        <rect x="140" y="240" width="200" height="40" fill="#8e44ad" stroke="#9b59b6" stroke-width="1" rx="3"/>
+        <text x="150" y="260" font-family="Consolas, monospace" font-size="11" fill="#ecf0f1">📁 theme/</text>
+        <text x="160" y="275" font-family="Consolas, monospace" font-size="10" fill="#bdc3c7">📄 app_theme.dart</text>
+        
+        <!-- Task Board Feature -->
+        <rect x="140" y="300" width="640" height="340" fill="#2c3e50" stroke="#f39c12" stroke-width="1" rx="3"/>
+        <text x="150" y="320" font-family="Consolas, monospace" font-size="12" font-weight="bold" fill="#f39c12">📁 task_board/</text>
+        
+        <!-- Data Layer -->
+        <rect x="170" y="340" width="180" height="180" fill="#27ae60" fill-opacity="0.1" stroke="#27ae60" stroke-width="1" rx="3"/>
+        <text x="180" y="360" font-family="Consolas, monospace" font-size="11" fill="#27ae60">📁 data/</text>
+        <text x="190" y="375" font-family="Consolas, monospace" font-size="10" fill="#ecf0f1">📁 models/</text>
+        <text x="200" y="390" font-family="Consolas, monospace" font-size="9" fill="#bdc3c7">📄 task_model.dart</text>
+        <text x="200" y="405" font-family="Consolas, monospace" font-size="9" fill="#bdc3c7">📄 user_model.dart</text>
+        <text x="190" y="425" font-family="Consolas, monospace" font-size="10" fill="#ecf0f1">📁 repositories/</text>
+        <text x="200" y="440" font-family="Consolas, monospace" font-size="9" fill="#bdc3c7">📄 task_repository_impl.dart</text>
+        <text x="200" y="455" font-family="Consolas, monospace" font-size="9" fill="#bdc3c7">📄 user_repository_impl.dart</text>
+        <text x="190" y="475" font-family="Consolas, monospace" font-size="10" fill="#ecf0f1">📁 sources/</text>
+        <text x="200" y="490" font-family="Consolas, monospace" font-size="9" fill="#bdc3c7">📄 local_data_source.dart</text>
+        <text x="200" y="505" font-family="Consolas, monospace" font-size="9" fill="#bdc3c7">📄 remote_data_source.dart</text>
+        
+        <!-- Domain Layer -->
+        <rect x="370" y="340" width="180" height="180" fill="#e74c3c" fill-opacity="0.1" stroke="#e74c3c" stroke-width="1" rx="3"/>
+        <text x="380" y="360" font-family="Consolas, monospace" font-size="11" fill="#e74c3c">📁 domain/</text>
+        <text x="390" y="375" font-family="Consolas, monospace" font-size="10" fill="#ecf0f1">📁 entities/</text>
+        <text x="400" y="390" font-family="Consolas, monospace" font-size="9" fill="#bdc3c7">📄 task.dart</text>
+        <text x="400" y="405" font-family="Consolas, monospace" font-size="9" fill="#bdc3c7">📄 user.dart</text>
+        <text x="390" y="425" font-family="Consolas, monospace" font-size="10" fill="#ecf0f1">📁 repositories/</text>
+        <text x="400" y="440" font-family="Consolas, monospace" font-size="9" fill="#bdc3c7">📄 task_repository.dart</text>
+        <text x="400" y="455" font-family="Consolas, monospace" font-size="9" fill="#bdc3c7">📄 user_repository.dart</text>
+        <text x="390" y="475" font-family="Consolas, monospace" font-size="10" fill="#ecf0f1">📁 usecases/</text>
+        <text x="400" y="490" font-family="Consolas, monospace" font-size="9" fill="#bdc3c7">📄 create_task.dart</text>
+        <text x="400" y="505" font-family="Consolas, monospace" font-size="9" fill="#bdc3c7">📄 get_tasks.dart</text>
+        
+        <!-- Presentation Layer -->
+        <rect x="570" y="340" width="180" height="280" fill="#3498db" fill-opacity="0.1" stroke="#3498db" stroke-width="1" rx="3"/>
+        <text x="580" y="360" font-family="Consolas, monospace" font-size="11" fill="#3498db">📁 presentation/</text>
+        <text x="590" y="375" font-family="Consolas, monospace" font-size="10" fill="#ecf0f1">📁 blocs/</text>
+        <text x="600" y="390" font-family="Consolas, monospace" font-size="9" fill="#bdc3c7">📄 task_bloc.dart</text>
+        <text x="600" y="405" font-family="Consolas, monospace" font-size="9" fill="#bdc3c7">📄 task_event.dart</text>
+        <text x="600" y="420" font-family="Consolas, monospace" font-size="9" fill="#bdc3c7">📄 task_state.dart</text>
+        <text x="600" y="435" font-family="Consolas, monospace" font-size="9" fill="#bdc3c7">📄 user_bloc.dart</text>
+        <text x="600" y="450" font-family="Consolas, monospace" font-size="9" fill="#bdc3c7">📄 user_event.dart</text>
+        <text x="600" y="465" font-family="Consolas, monospace" font-size="9" fill="#bdc3c7">📄 user_state.dart</text>
+        <text x="590" y="485" font-family="Consolas, monospace" font-size="10" fill="#ecf0f1">📁 pages/</text>
+        <text x="600" y="500" font-family="Consolas, monospace" font-size="9" fill="#bdc3c7">📄 task_board_page.dart</text>
+        <text x="600" y="515" font-family="Consolas, monospace" font-size="9" fill="#bdc3c7">📄 task_form_page.dart</text>
+        <text x="590" y="535" font-family="Consolas, monospace" font-size="10" fill="#ecf0f1">📁 providers/</text>
+        <text x="600" y="550" font-family="Consolas, monospace" font-size="9" fill="#bdc3c7">📄 task_provider.dart</text>
+        <text x="600" y="565" font-family="Consolas, monospace" font-size="9" fill="#bdc3c7">📄 filter_provider.dart</text>
+        <text x="590" y="585" font-family="Consolas, monospace" font-size="10" fill="#ecf0f1">📁 widgets/</text>
+        <text x="600" y="600" font-family="Consolas, monospace" font-size="9" fill="#bdc3c7">📄 task_card.dart</text>
+        <text x="600" y="615" font-family="Consolas, monospace" font-size="9" fill="#bdc3c7">📄 search_field.dart</text>
+      </g>
+    </g>
+    
+    <!-- Router -->
+    <rect x="80" y="700" width="150" height="30" fill="#7f8c8d" stroke="#95a5a6" stroke-width="1" rx="3"/>
+    <text x="90" y="720" font-family="Consolas, monospace" font-size="11" fill="#ecf0f1">📁 router/</text>
+    
+    <!-- Main -->
+    <rect x="250" y="700" width="100" height="30" fill="#7f8c8d" stroke="#95a5a6" stroke-width="1" rx="3"/>
+    <text x="260" y="720" font-family="Consolas, monospace" font-size="11" fill="#ecf0f1">📄 main.dart</text>
+    
+    <!-- Bloc Observer -->
+    <rect x="370" y="700" width="150" height="30" fill="#7f8c8d" stroke="#95a5a6" stroke-width="1" rx="3"/>
+    <text x="380" y="720" font-family="Consolas, monospace" font-size="11" fill="#ecf0f1">📄 bloc_observer.dart</text>
+  </g>
+  
+  <!-- Legend -->
+  <g id="legend">
+    <rect x="50" y="740" width="900" height="50" fill="#34495e" stroke="#bdc3c7" stroke-width="1" rx="3"/>
+    <text x="60" y="760" font-family="Consolas, monospace" font-size="12" font-weight="bold" fill="#ecf0f1">Legend:</text>
+    <text x="60" y="775" font-family="Consolas, monospace" font-size="10" fill="#3498db">🔵 Presentation Layer</text>
+    <text x="200" y="775" font-family="Consolas, monospace" font-size="10" fill="#e74c3c">🔴 Domain Layer</text>
+    <text x="320" y="775" font-family="Consolas, monospace" font-size="10" fill="#27ae60">🟢 Data Layer</text>
+    <text x="440" y="775" font-family="Consolas, monospace" font-size="10" fill="#9b59b6">🟣 Shared/Common</text>
+    <text x="580" y="775" font-family="Consolas, monospace" font-size="10" fill="#f39c12">🟠 Feature Module</text>
+    <text x="720" y="775" font-family="Consolas, monospace" font-size="10" fill="#7f8c8d">⚫ Configuration</text>
+  </g>
+</svg>

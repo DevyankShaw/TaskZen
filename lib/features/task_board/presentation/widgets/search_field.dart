@@ -2,16 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../shared/theme/app_theme.dart';
 import '../blocs/task/task_bloc.dart';
 import '../providers/filter/filter_provider.dart';
 import '../providers/task/task_provider.dart';
 import 'filter_content.dart';
 
-class SearchField extends ConsumerStatefulWidget {
+class SearchField extends ConsumerStatefulWidget
+    implements PreferredSizeWidget {
   const SearchField({super.key});
 
   @override
   ConsumerState<SearchField> createState() => _SearchFieldState();
+
+  @override
+  Size get preferredSize => Size.fromHeight(80);
 }
 
 class _SearchFieldState extends ConsumerState<SearchField> {
@@ -25,8 +30,9 @@ class _SearchFieldState extends ConsumerState<SearchField> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    return Container(
       padding: const EdgeInsets.all(12),
+      color: AppTheme.backgroundColor,
       child: TextField(
         controller: _controller,
         onChanged: (taskName) {
@@ -104,7 +110,7 @@ class _SearchFieldState extends ConsumerState<SearchField> {
               ],
             ),
             const Divider(color: Colors.blueGrey, height: 2, thickness: 0.5),
-            FilterContent(),
+            Expanded(child: FilterContent()),
           ],
         );
       },

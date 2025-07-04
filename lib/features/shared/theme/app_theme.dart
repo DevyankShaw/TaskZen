@@ -15,7 +15,7 @@ class AppTheme {
     ),
     scaffoldBackgroundColor: backgroundColor,
     appBarTheme: const AppBarTheme(
-      elevation: 0,
+      elevation: 4,
       backgroundColor: surfaceColor,
       foregroundColor: Colors.black87,
     ),

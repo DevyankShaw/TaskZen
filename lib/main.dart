@@ -11,6 +11,7 @@ void main() {
   runApp(
     ProviderScope(
       child: MaterialApp.router(
+        debugShowCheckedModeBanner: false,
         title: 'TaskZen',
         theme: AppTheme.lightTheme,
         darkTheme: AppTheme.darkTheme,

@@ -7,6 +7,7 @@ class LocalDataSource {
   // Get all tasks
   Future<List<TaskModel>> getTasks() async {
     try {
+      await Future.delayed(Duration(milliseconds: 500));
       return mockTaskModelist;
     } catch (_) {
       rethrow;
@@ -58,6 +59,7 @@ class LocalDataSource {
   // Get all users
   Future<List<UserModel>> getUsers() async {
     try {
+      await Future.delayed(Duration(milliseconds: 500));
       return mockUserModelList;
     } catch (_) {
       rethrow;
@@ -113,6 +115,8 @@ class LocalDataSource {
     List<TaskPriority> priorities = const [],
   }) async {
     try {
+      await Future.delayed(Duration(milliseconds: 200));
+
       var filteredTasks = <TaskModel>[];
 
       if (title?.isNotEmpty ?? false) {

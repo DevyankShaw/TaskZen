@@ -21,6 +21,7 @@ class TaskBoardPage extends ConsumerWidget {
           context,
         ).textTheme.bodyLarge?.copyWith(fontSize: 18),
         title: const Text('Task Board'),
+        bottom: SearchField(),
       ),
       body: state.when(
         loading: () => const Center(child: CircularProgressIndicator()),
@@ -35,12 +36,7 @@ class TaskBoardPage extends ConsumerWidget {
             case TaskLoading():
               return const Center(child: CircularProgressIndicator());
             case TaskLoaded():
-              return Column(
-                children: [
-                  SearchField(),
-                  GroupTaskLayout(tasks: taskState.tasks),
-                ],
-              );
+              return GroupTaskLayout(tasks: taskState.tasks);
             case TaskError():
               return Center(
                 child: Text(

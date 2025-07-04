@@ -186,7 +186,9 @@ class _TaskFormPageState extends ConsumerState<TaskFormPage> {
                         controller: _deadlineController,
                         readOnly: true,
                         onTap: () async {
-                          _deadline = await _showDateTimePicker(_deadline);
+                          _deadline = await _showDateTimePicker(
+                            _deadline ?? DateTime.now(),
+                          );
 
                           if (_deadline != null) {
                             _deadlineController.text = dateFormat.format(
