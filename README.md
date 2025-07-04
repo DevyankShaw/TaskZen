@@ -45,7 +45,10 @@ Day 4 | 2/7/25 | 3 Hr
 Day 5 | 3/7/25 | 6 Hr
    - Added unit test for two blocs and widget test for one widget
    - Initially, I found myself stuck on setting up mock responses for use cases/repositories being invoked inside bloc event handlers. Later, resolved by changing the package to Mocktail from Mockito
-   - Finally done some cleaning up and organising activities
+
+Day 6 | 4/7/25 | 3 Hr
+   - Tried to make local storage (isar) workable, but a dependency conflict arose which will require some more time to resolve
+   - Finally done some cleaning up and streamlined activities
 
 ## Tools
 - AI (ChatGPT, Claud, Gemini)
