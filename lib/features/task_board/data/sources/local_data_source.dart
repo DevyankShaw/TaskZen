@@ -1,3 +1,6 @@
+import 'package:isar/isar.dart';
+import 'package:taskzen/features/task_board/domain/entities/task.dart';
+
 import '../../../shared/enum/enum.dart';
 import '../../../shared/mock/mock_data.dart';
 import '../models/task_model.dart';
@@ -8,7 +11,7 @@ class LocalDataSource {
   Future<List<TaskModel>> getTasks() async {
     try {
       await Future.delayed(Duration(milliseconds: 500));
-      return mockTaskModelist;
+      return await isar.tasks.where().findAll();
     } catch (_) {
       rethrow;
     }
