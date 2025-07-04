@@ -47,5 +47,7 @@ Day 5 | 3/7/25 | 6 Hr
    - Initially, I found myself stuck on setting up mock responses for use cases/repositories being invoked inside bloc event handlers. Later, resolved by changing the package to Mocktail from Mockito
    - Finally done some cleaning up and organising activities
 
-
+# Tools
+- AI (ChatGPT, Claud, Gemini)
+- Packages (Refer pubspec.yaml)
 
