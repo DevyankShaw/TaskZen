@@ -20,7 +20,7 @@ https://github.com/user-attachments/assets/7b884662-eb8a-404b-a566-a834b5af6256
 - [x] State Management: Use BLoC for business logic and Riverpod for UI states.
 - [x] Architecture: Follow clean architecture principles.
 - [x] Testing: Include at least one unit test and one widget test.
-- [ ] Bonus: Handle offline mode with local storage (optional). 
+- [ ] Bonus: Handle offline mode with local storage (optional) - Initial implementation done. Please check below for more details
 
 # Challenge Approach (Daywise)
 
@@ -40,6 +40,7 @@ Day 3 | 1/7/25 | 5 Hr
 
 Day 4 | 2/7/25 | 3 Hr
    - Trying to implement offline mode using [Isar](https://pub.dev/packages/isar) as local storage. Facing a few challenges in binding it with the existing structure.
+   - [PR](https://github.com/DevyankShaw/taskzen/pull/1) raised with initial implementation
 
 Day 5 | 3/7/25 | 6 Hr
    - Added unit test for two blocs and widget test for one widget
