@@ -8,11 +8,11 @@ A collaborative task management app where users can create, assign, and manage t
 ## Folder Structure
 ![Folder Structure](https://github.com/DevyankShaw/taskzen/blob/main/images/folder_structure.svg)
 
-# Demo
+## Demo
 
 https://github.com/user-attachments/assets/7b884662-eb8a-404b-a566-a834b5af6256
 
-# Requirements
+## Requirements
 - [x] Task Board: List tasks by status with grouped sections. 
 - [x] Task Creation/Edit: A Modal or screen with fields like title, assignee, deadline, priority, and status. 
 - [x] Team Management: Use a mock list of team members.
@@ -22,7 +22,7 @@ https://github.com/user-attachments/assets/7b884662-eb8a-404b-a566-a834b5af6256
 - [x] Testing: Include at least one unit test and one widget test.
 - [ ] Bonus: Handle offline mode with local storage (optional) - Initial implementation done. Please check below for more details
 
-# Challenge Approach (Daywise)
+## Challenge Approach (Daywise)
 
  Day 1 | 28/6/25 | 4 Hr
    - List down the task and its subtasks to get started with the challenge, like a high-level breakdown of features, entities, etc
@@ -47,7 +47,9 @@ Day 5 | 3/7/25 | 6 Hr
    - Initially, I found myself stuck on setting up mock responses for use cases/repositories being invoked inside bloc event handlers. Later, resolved by changing the package to Mocktail from Mockito
    - Finally done some cleaning up and organising activities
 
-# Tools
+## Tools
 - AI (ChatGPT, Claud, Gemini)
 - Packages (Refer pubspec.yaml)
+- Flutter & Dart
+- VS Code
 
