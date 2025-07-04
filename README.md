@@ -2,6 +2,25 @@
 
 A collaborative task management app where users can create, assign, and manage tasks across different stages (To Do, In Progress, Done). 
 
+## Clean Architecture
+![Clean Architecture](https://github.com/DevyankShaw/taskzen/blob/main/images/clean_architecture.svg)
+
+## Folder Structure
+![Folder Structure](https://github.com/DevyankShaw/taskzen/blob/main/images/folder_structure.svg)
+
+# Demo
+
+https://github.com/user-attachments/assets/7b884662-eb8a-404b-a566-a834b5af6256
+
+# Requirements
+- [x] Task Board: List tasks by status with grouped sections. 
+- [x] Task Creation/Edit: A Modal or screen with fields like title, assignee, deadline, priority, and status. 
+- [x] Team Management: Use a mock list of team members.
+- [x] Search & Filter: Implement by task name, assignee, or priority. 
+- [x] State Management: Use BLoC for business logic and Riverpod for UI states.
+- [x] Architecture: Follow clean architecture principles.
+- [x] Testing: Include at least one unit test and one widget test.
+- [ ] Bonus: Handle offline mode with local storage (optional). 
 
 # Challenge Approach (Daywise)
 
@@ -26,4 +45,6 @@ Day 5 | 3/7/25 | 6 Hr
    - Added unit test for two blocs and widget test for one widget
    - Initially, I found myself stuck on setting up mock responses for use cases/repositories being invoked inside bloc event handlers. Later, resolved by changing the package to Mocktail from Mockito
    - Finally done some cleaning up and organising activities
+
+
 
