@@ -173,7 +173,7 @@ void main() {
           reason: 'Incorrect assignee placeholder widget',
         );
 
-        assigneeFinder = find.text(taskWithAssignee.assignee!.name);
+        assigneeFinder = find.text(taskWithAssignee.assignee.value!.name);
         expect(
           assigneeFinder,
           findsOneWidget,

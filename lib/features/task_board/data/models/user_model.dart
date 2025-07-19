@@ -7,4 +7,15 @@ class UserModel extends User {
     required super.email,
     required super.role,
   });
+
+  factory UserModel.fromEntity(User user) => UserModel(
+    id: user.id,
+    name: user.name,
+    email: user.email,
+    role: user.role,
+  );
+
+  User toEntity() {
+    return this;
+  }
 }

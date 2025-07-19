@@ -1,6 +1,3 @@
-import 'package:isar/isar.dart';
-import 'package:taskzen/features/task_board/domain/entities/task.dart';
-
 import '../../../shared/enum/enum.dart';
 import '../../../shared/mock/mock_data.dart';
 import '../models/task_model.dart';
@@ -11,7 +8,7 @@ class LocalDataSource {
   Future<List<TaskModel>> getTasks() async {
     try {
       await Future.delayed(Duration(milliseconds: 500));
-      return await isar.tasks.where().findAll();
+      return mockTaskModelist;
     } catch (_) {
       rethrow;
     }
@@ -30,11 +27,11 @@ class LocalDataSource {
   Future<void> updateTask(TaskModel taskModel) async {
     try {
       final updateIndex = mockTaskModelist.indexWhere(
-        (element) => element.taskId == taskModel.taskId,
+        (element) => element.id == taskModel.id,
       );
 
       if (updateIndex == -1) {
-        throw Exception('Task with taskId ${taskModel.taskId} doesn\'t exists');
+        throw Exception('Task with taskId ${taskModel.id} doesn\'t exists');
       }
 
       mockTaskModelist[updateIndex] = taskModel;
@@ -47,7 +44,7 @@ class LocalDataSource {
   Future<TaskModel?> getTaskById(int taskId) async {
     try {
       final searchIndex = mockTaskModelist.indexWhere(
-        (element) => element.taskId == taskId,
+        (element) => element.id == taskId,
       );
       if (searchIndex != -1) {
         return mockTaskModelist[searchIndex - 1];
@@ -82,11 +79,11 @@ class LocalDataSource {
   Future<void> updateUser(UserModel userModel) async {
     try {
       final updateIndex = mockUserModelList.indexWhere(
-        (element) => element.userId == userModel.userId,
+        (element) => element.id == userModel.id,
       );
 
       if (updateIndex == -1) {
-        throw Exception('User with userId ${userModel.userId} doesn\'t exists');
+        throw Exception('User with userId ${userModel.id} doesn\'t exists');
       }
 
       mockUserModelList[updateIndex] = userModel;
@@ -99,7 +96,7 @@ class LocalDataSource {
   Future<UserModel?> getUserById(int userId) async {
     try {
       final searchIndex = mockUserModelList.indexWhere(
-        (element) => element.userId == userId,
+        (element) => element.id == userId,
       );
       if (searchIndex != -1) {
         return mockUserModelList[searchIndex - 1];
@@ -133,7 +130,7 @@ class LocalDataSource {
           filteredTasks = filteredTasks
               .where(
                 (task) => assignees.any(
-                  (element) => element.userId == task.assignee?.userId,
+                  (element) => element.id == task.assignee.value?.id,
                 ),
               )
               .toList();
@@ -141,7 +138,7 @@ class LocalDataSource {
           filteredTasks = mockTaskModelist
               .where(
                 (task) => assignees.any(
-                  (element) => element.userId == task.assignee?.userId,
+                  (element) => element.id == task.assignee.value?.id,
                 ),
               )
               .toList();

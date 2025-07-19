@@ -46,7 +46,7 @@ class _TaskFormPageState extends ConsumerState<TaskFormPage> {
           ? dateFormat.format(widget.task!.deadline!)
           : '';
       _deadline = widget.task!.deadline;
-      _assignee = widget.task!.assignee;
+      _assignee = widget.task!.assignee.value;
       _priority = widget.task!.priority;
       _status = widget.task!.status;
     }
@@ -63,12 +63,11 @@ class _TaskFormPageState extends ConsumerState<TaskFormPage> {
         id: now.millisecondsSinceEpoch,
         title: _titleController.text.trim(),
         description: _descriptionController.text.trim(),
-        assignee: _assignee,
         deadline: _deadline,
         priority: _priority,
         status: _status,
         createdAt: now,
-      );
+      )..assignee.value = _assignee;
       bloc.add(AddTaskEvent(task));
     } else {
       final task = widget.task!.copyWith(

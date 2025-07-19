@@ -1,5 +1,4 @@
 import '../../domain/entities/task.dart';
-import 'user_model.dart';
 
 class TaskModel extends Task {
   TaskModel({
@@ -12,4 +11,22 @@ class TaskModel extends Task {
     required super.createdAt,
     super.updatedAt,
   });
+
+  factory TaskModel.fromEntity(Task task) {
+    final taskModel = TaskModel(
+      id: task.id,
+      title: task.title,
+      description: task.description,
+      deadline: task.deadline,
+      priority: task.priority,
+      status: task.status,
+      createdAt: task.createdAt,
+      updatedAt: task.updatedAt,
+    )..assignee.value = task.assignee.value;
+    return taskModel;
+  }
+
+  Task toEntity() {
+    return this;
+  }
 }

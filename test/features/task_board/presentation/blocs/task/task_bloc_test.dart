@@ -185,7 +185,7 @@ void main() {
           .where((task) => task.title.toLowerCase().contains(searchTitle))
           .toList();
       selectedUser = mockUserModelList
-          .singleWhere((element) => element.userId == 3)
+          .singleWhere((element) => element.id == 3)
           .toEntity();
     });
 
@@ -228,7 +228,7 @@ void main() {
             .where(
               (task) =>
                   task.priority == TaskPriority.high &&
-                  task.assignee?.id == selectedUser.id,
+                  task.assignee.value?.id == selectedUser.id,
             )
             .toList();
         when(

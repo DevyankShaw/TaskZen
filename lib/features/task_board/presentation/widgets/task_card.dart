@@ -57,12 +57,12 @@ class TaskCard extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    if (task.assignee != null)
+                    if (task.assignee.value != null)
                       Expanded(
                         child: IconLabelValue(
                           icon: Icons.assignment_ind_outlined,
                           label: 'Assigned To',
-                          value: task.assignee!.name,
+                          value: task.assignee.value!.name,
                         ),
                       ),
                     if (task.deadline != null)
