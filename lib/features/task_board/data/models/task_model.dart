@@ -1,56 +1,63 @@
+import 'package:isar/isar.dart';
+
 import '../../../shared/enum/enum.dart';
 import '../../domain/entities/task.dart';
 import 'user_model.dart';
 
+part 'task_model.g.dart';
+
+@collection
 class TaskModel {
-  late int taskId;
-  late String title;
-  String? description;
-  UserModel? assignee;
-  DateTime? deadline;
-  late TaskPriority priority;
-  late TaskStatus status;
-  late DateTime createdAt;
-  DateTime? updatedAt;
+  final Id id;
+  final String title;
+  final String? description;
+  final DateTime? deadline;
+  @enumerated
+  final TaskPriority priority;
+  @enumerated
+  final TaskStatus status;
+  final DateTime createdAt;
+  final DateTime? updatedAt;
+  final IsarLink<UserModel> assignee = IsarLink<UserModel>();
 
   TaskModel({
-    //TODO: Recheck for auto increment applied here or inherit from entity
-    required this.taskId,
+    this.id = Isar.autoIncrement,
     required this.title,
     this.description,
-    this.assignee,
     this.deadline,
     required this.priority,
     required this.status,
-    DateTime? createdAt,
+    required this.createdAt,
     this.updatedAt,
-  }) : createdAt = createdAt ?? DateTime.now();
+  });
 
-  TaskModel.fromEntity(Task task) {
-    taskId = task.id;
-    title = task.title;
-    description = task.description;
-    assignee = task.assignee != null
-        ? UserModel.fromEntity(task.assignee!)
-        : null;
-    deadline = task.deadline;
-    priority = task.priority;
-    status = task.status;
-    createdAt = task.createdAt;
-    updatedAt = task.updatedAt;
+  factory TaskModel.fromEntity(Task task) {
+    final taskModel =
+        TaskModel(
+            id: task.id,
+            title: task.title,
+            description: task.description,
+            deadline: task.deadline,
+            priority: task.priority,
+            status: task.status,
+            createdAt: task.createdAt,
+            updatedAt: task.updatedAt,
+          )
+          ..assignee.value = task.assignee != null
+              ? UserModel.fromEntity(task.assignee!)
+              : null;
+    return taskModel;
   }
 
-  Task toEntity() {
-    return Task(
-      id: taskId,
-      title: title,
-      description: description,
-      assignee: assignee?.toEntity(),
-      deadline: deadline,
-      priority: priority,
-      status: status,
-      createdAt: createdAt,
-      updatedAt: updatedAt,
-    );
-  }
+  Task toEntity() => Task(
+    id: id,
+    title: title,
+    description: description,
+    assignee: assignee.value?.toEntity(),
+    deadline: deadline,
+    priority: priority,
+    status: status,
+    createdAt: createdAt,
+    updatedAt: updatedAt,
+  );
 }

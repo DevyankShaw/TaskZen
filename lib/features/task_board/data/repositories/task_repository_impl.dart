@@ -37,6 +37,17 @@ class TaskRepositoryImpl implements TaskRepository {
   }
 
   @override
+  Future<Either<Failure, void>> createAllTasks(List<Task> tasks) async {
+    try {
+      final models = tasks.map((task) => TaskModel.fromEntity(task)).toList();
+      await localDataSource.createAllTasks(models);
+      return Either.right(null);
+    } catch (e) {
+      return Either.left(ServerFailure('Failed to create all tasks: $e'));
+    }
+  }
+
+  @override
   Future<Either<Failure, void>> updateTask(Task task) async {
     try {
       final model = TaskModel.fromEntity(task);

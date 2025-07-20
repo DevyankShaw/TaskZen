@@ -9,7 +9,6 @@ class User extends Equatable {
   final Role role;
 
   const User({
-    //TODO: Need to check for auto increment during local storage integration 
     required this.id,
     required this.name,
     required this.email,
@@ -17,5 +16,5 @@ class User extends Equatable {
   });
 
   @override
-  List<Object> get props => [id, name, email, role];
+  List<Object?> get props => [id, name, email, role];
 }

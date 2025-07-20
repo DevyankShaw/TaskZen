@@ -5,7 +5,9 @@ import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:taskzen/features/shared/mock/mock_data.dart';
 import 'package:taskzen/features/task_board/domain/entities/task.dart';
+import 'package:taskzen/features/task_board/presentation/blocs/user/user_bloc.dart';
 import 'package:taskzen/features/task_board/presentation/pages/task_form_page.dart';
+import 'package:taskzen/features/task_board/presentation/providers/user/user_provider.dart';
 import 'package:taskzen/features/task_board/presentation/widgets/task_card.dart';
 import 'package:taskzen/router/app_router.dart';
 import 'package:taskzen/router/routes.dart';
@@ -48,7 +50,14 @@ void main() {
                   name: Routes.taskUpdate.toName,
                   builder: (context, state) {
                     final task = state.extra as Task?;
-                    return TaskFormPage(task: task);
+                    return ProviderScope(
+                      overrides: [
+                        userStateProvider.overrideWith(
+                          (ref) => Stream.value(UserLoaded(mockUserList)),
+                        ),
+                      ],
+                      child: TaskFormPage(task: task),
+                    );
                   },
                 ),
               ],

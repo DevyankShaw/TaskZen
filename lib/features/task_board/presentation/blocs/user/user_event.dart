@@ -27,3 +27,10 @@ class GetUserByIdEvent extends UserEvent {
   @override
   List<Object?> get props => [userId];
 }
+
+class AddAllUsersEvent extends UserEvent {
+  final List<User> users;
+  AddAllUsersEvent(this.users);
+  @override
+  List<Object?> get props => [users];
+}

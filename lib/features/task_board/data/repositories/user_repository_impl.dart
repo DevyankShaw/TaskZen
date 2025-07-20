@@ -34,6 +34,17 @@ class UserRepositoryImpl implements UserRepository {
   }
 
   @override
+  Future<Either<Failure, void>> createAllUsers(List<User> users) async {
+    try {
+      final models = users.map((user) => UserModel.fromEntity(user)).toList();
+      await localDataSource.createAllUsers(models);
+      return Either.right(null);
+    } catch (e) {
+      return Either.left(ServerFailure('Failed to create all users: $e'));
+    }
+  }
+
+  @override
   Future<Either<Failure, void>> updateUser(User user) async {
     try {
       final model = UserModel.fromEntity(user);

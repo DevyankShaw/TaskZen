@@ -40,3 +40,10 @@ class FilterTasksEvent extends TaskEvent {
   @override
   List<Object?> get props => [title, assignees, priorities];
 }
+
+class AddAllTasksEvent extends TaskEvent {
+  final List<Task> tasks;
+  AddAllTasksEvent(this.tasks);
+  @override
+  List<Object?> get props => [tasks];
+}

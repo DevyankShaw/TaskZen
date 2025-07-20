@@ -1,3 +1,4 @@
+import 'create_all_tasks.dart';
 import 'create_task.dart';
 import 'filter_tasks.dart';
 import 'get_task_by_id.dart';
@@ -10,6 +11,7 @@ class TaskUseCases {
   final UpdateTask updateTask;
   final GetTaskById getTaskById;
   final FilterTasks filterTasks;
+  final CreateAllTasks createAllTasks;
 
   TaskUseCases({
     required this.getTasks,
@@ -17,5 +19,6 @@ class TaskUseCases {
     required this.updateTask,
     required this.getTaskById,
     required this.filterTasks,
+    required this.createAllTasks,
   });
 }
