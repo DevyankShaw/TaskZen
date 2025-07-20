@@ -50,6 +50,16 @@ Day 6 | 4/7/25 | 3 Hr
    - Tried to make local storage (isar) workable, but a dependency conflict arose which will require some more time to resolve
    - Finally done some cleaning up and streamlined activities
 
+Day 7 | 19/7/25 | 4 Hr
+   - Resolved dependencies conflict by lowering the isar version and moving the analyzer dependency under dependency_overrides
+   - isar namespace issue occurred during the gradle build. Fixed with the help of Stack Overflow
+   - Continued with a few implementations
+
+Day 8 | 20/7/25 | 4 Hr
+   - Wrote necessary queries and completed binding activities required for the isar/local db integration.
+   - Fixed an ANR issue by converting ref.watch to ref.read for the providers, which caused.
+   - Widget test case broke due to converting Provider to FutureProvider. Resolved by mocking that provider. 
+
 ## Tools
 - AI (ChatGPT, Claud, Gemini)
 - Packages (Refer pubspec.yaml)
