@@ -15,6 +15,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     on<AddUserEvent>(_onAdd);
     on<UpdateUserEvent>(_onUpdate);
     on<GetUserByIdEvent>(_onLoadUserById);
+    on<AddAllUsersEvent>(_onAddAll);
   }
 
   Future<void> _onLoad(LoadUsersEvent event, Emitter<UserState> emit) async {
@@ -54,6 +55,14 @@ class UserBloc extends Bloc<UserEvent, UserState> {
         (fail) => UserError(fail.message),
         (user) => SingleUserLoaded(user),
       ),
+    );
+  }
+
+  Future<void> _onAddAll(AddAllUsersEvent event, Emitter<UserState> emit) async {
+    final result = await useCases.createAllUsers(event.users);
+    result.fold(
+      (fail) => emit(UserError(fail.message)),
+      (_) => add(LoadUsersEvent()),
     );
   }
 }
