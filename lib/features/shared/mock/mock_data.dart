@@ -79,3 +79,11 @@ final mockTaskModelist = <TaskModel>[
       (element) => element.id == 3,
     ),
 ];
+
+final mockUserList = mockUserModelList
+    .map((userModel) => userModel.toEntity())
+    .toList();
+
+final mockTaskList = mockTaskModelist
+    .map((taskModel) => taskModel.toEntity())
+    .toList();

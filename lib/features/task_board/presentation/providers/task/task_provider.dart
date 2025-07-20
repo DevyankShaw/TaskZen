@@ -1,12 +1,13 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../../shared/mock/mock_data.dart';
 import '../../blocs/task/task_bloc.dart';
 import 'task_use_cases_provider.dart';
 
 final taskBlocProvider = FutureProvider<TaskBloc>((ref) async {
-  final useCases = await ref.watch(taskUseCasesProvider.future);
+  final useCases = await ref.read(taskUseCasesProvider.future);
   final bloc = TaskBloc(useCases);
-  bloc.add(LoadTasksEvent());
+  bloc.add(AddAllTasksEvent(mockTaskList));
   ref.onDispose(bloc.close);
   return bloc;
 });

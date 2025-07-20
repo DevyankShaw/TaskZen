@@ -7,6 +7,7 @@ import 'package:taskzen/features/shared/error/failure.dart';
 import 'package:taskzen/features/shared/mock/mock_data.dart';
 import 'package:taskzen/features/task_board/domain/entities/task.dart';
 import 'package:taskzen/features/task_board/domain/entities/user.dart';
+import 'package:taskzen/features/task_board/domain/usecases/task/create_all_tasks.dart';
 import 'package:taskzen/features/task_board/domain/usecases/task/create_task.dart';
 import 'package:taskzen/features/task_board/domain/usecases/task/filter_tasks.dart';
 import 'package:taskzen/features/task_board/domain/usecases/task/get_task_by_id.dart';
@@ -20,6 +21,7 @@ import 'package:taskzen/features/task_board/presentation/blocs/task/task_bloc.da
 /// - AddTaskEvent
 /// - UpdateTaskEvent
 /// - FilterTasksEvent
+/// - AddAllTasksEvent
 ///
 ///
 /// Unit test against below events not written as it's not been used in feature
@@ -35,6 +37,8 @@ class MockGetTaskById extends Mock implements GetTaskById {}
 
 class MockFilterTasks extends Mock implements FilterTasks {}
 
+class MockCreateAllTasks extends Mock implements CreateAllTasks {}
+
 void main() {
   late TaskBloc taskBloc;
   late TaskUseCases taskUseCases;
@@ -43,7 +47,7 @@ void main() {
   late MockUpdateTask mockUpdateTask;
   late MockGetTaskById mockGetTaskById;
   late MockFilterTasks mockFilterTasks;
-  late List<Task> mockTaskList;
+  late MockCreateAllTasks mockCreateAllTasks;
 
   setUp(() {
     mockGetTasks = MockGetTasks();
@@ -51,17 +55,17 @@ void main() {
     mockUpdateTask = MockUpdateTask();
     mockGetTaskById = MockGetTaskById();
     mockFilterTasks = MockFilterTasks();
+    mockCreateAllTasks = MockCreateAllTasks();
     taskUseCases = TaskUseCases(
       getTasks: mockGetTasks,
       createTask: mockCreateTask,
       updateTask: mockUpdateTask,
       getTaskById: mockGetTaskById,
       filterTasks: mockFilterTasks,
+      createAllTasks: mockCreateAllTasks,
     );
 
     taskBloc = TaskBloc(taskUseCases);
-
-    mockTaskList = mockTaskModelist.map((e) => e.toEntity()).toList();
   });
 
   test('initial State should be TaskLoading', () {
@@ -228,7 +232,7 @@ void main() {
             .where(
               (task) =>
                   task.priority == TaskPriority.high &&
-                  task.assignee.value?.id == selectedUser.id,
+                  task.assignee?.id == selectedUser.id,
             )
             .toList();
         when(
@@ -260,6 +264,35 @@ void main() {
       },
       act: (bloc) => bloc.add(FilterTasksEvent(title: searchTitle)),
       expect: () => [TaskLoading(), TaskError('Failed to filter tasks')],
+    );
+  });
+
+  group('AddAllTasksEvent', () {
+    blocTest<TaskBloc, TaskState>(
+      'emits [TaskLoading, TaskLoaded] when AddAllTasksEvent is added and success',
+      build: () {
+        when(
+          () => taskUseCases.getTasks(),
+        ).thenAnswer((_) async => Either.right(mockTaskList));
+        when(
+          () => taskUseCases.createAllTasks(mockTaskList),
+        ).thenAnswer((_) async => Either.right(null));
+        return taskBloc;
+      },
+      act: (bloc) => bloc.add(AddAllTasksEvent(mockTaskList)),
+      expect: () => [TaskLoading(), TaskLoaded(mockTaskList)],
+    );
+
+    blocTest<TaskBloc, TaskState>(
+      'emits [TaskError] when AddAllTasksEvent is added and fail',
+      build: () {
+        when(() => taskUseCases.createAllTasks(mockTaskList)).thenAnswer(
+          (_) async => Either.left(ServerFailure('Failed to add task')),
+        );
+        return taskBloc;
+      },
+      act: (bloc) => bloc.add(AddAllTasksEvent(mockTaskList)),
+      expect: () => [TaskError('Failed to add task')],
     );
   });
 }

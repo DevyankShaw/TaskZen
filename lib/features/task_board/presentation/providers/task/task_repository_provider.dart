@@ -6,6 +6,6 @@ import '../../../domain/repositories/task_repository.dart';
 import '../local_storage/isar_provider.dart';
 
 final taskRepositoryProvider = FutureProvider<TaskRepository>((ref) async {
-  final isar = await ref.watch(isarProvider.future);
+  final isar = await ref.read(isarProvider.future);
   return TaskRepositoryImpl(LocalDataSource(isar));
 });
