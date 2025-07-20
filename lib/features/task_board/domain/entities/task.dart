@@ -1,26 +1,21 @@
-import 'package:isar/isar.dart';
+import 'package:equatable/equatable.dart';
 
 import '../../../shared/enum/enum.dart';
 import 'user.dart';
 
-part 'task.g.dart';
-
-@collection
-class Task {
-  final Id id;
+class Task extends Equatable {
+  final int id;
   final String title;
   final String? description;
   final DateTime? deadline;
-  @enumerated
   final TaskPriority priority;
-  @enumerated
   final TaskStatus status;
   final DateTime createdAt;
   final DateTime? updatedAt;
-  final IsarLink<User> assignee = IsarLink<User>();
+  final User? assignee;
 
-  Task({
-    this.id = Isar.autoIncrement,
+  const Task({
+    required this.id,
     required this.title,
     this.description,
     this.deadline,
@@ -28,6 +23,7 @@ class Task {
     required this.status,
     required this.createdAt,
     this.updatedAt,
+    this.assignee,
   });
 
   Task copyWith({
@@ -48,8 +44,21 @@ class Task {
       status: status ?? this.status,
       createdAt: createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
+      assignee: assignee ?? this.assignee,
     );
-    task.assignee.value = assignee ?? this.assignee.value;
     return task;
   }
+
+  @override
+  List<Object?> get props => [
+    id,
+    title,
+    description,
+    deadline,
+    priority,
+    status,
+    createdAt,
+    updatedAt,
+    assignee,
+  ];
 }

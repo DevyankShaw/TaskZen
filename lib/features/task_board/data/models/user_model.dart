@@ -1,11 +1,23 @@
+import 'package:isar/isar.dart';
+
+import '../../../shared/enum/enum.dart';
 import '../../domain/entities/user.dart';
 
-class UserModel extends User {
+part 'user_model.g.dart';
+
+@collection
+class UserModel {
+  final Id id;
+  final String name;
+  final String email;
+  @enumerated
+  final Role role;
+
   UserModel({
-    super.id,
-    required super.name,
-    required super.email,
-    required super.role,
+    this.id = Isar.autoIncrement,
+    required this.name,
+    required this.email,
+    required this.role,
   });
 
   factory UserModel.fromEntity(User user) => UserModel(
@@ -16,6 +28,6 @@ class UserModel extends User {
   );
 
   User toEntity() {
-    return this;
+    return User(id: id, name: name, email: email, role: role);
   }
 }

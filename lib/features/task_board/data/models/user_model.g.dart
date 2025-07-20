@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'user.dart';
+part of 'user_model.dart';
 
 // **************************************************************************
 // IsarCollectionGenerator
@@ -9,13 +9,13 @@ part of 'user.dart';
 // coverage:ignore-file
 // ignore_for_file: duplicate_ignore, non_constant_identifier_names, constant_identifier_names, invalid_use_of_protected_member, unnecessary_cast, prefer_const_constructors, lines_longer_than_80_chars, require_trailing_commas, inference_failure_on_function_invocation, unnecessary_parenthesis, unnecessary_raw_strings, unnecessary_null_checks, join_return_with_assignment, prefer_final_locals, avoid_js_rounded_ints, avoid_positional_boolean_parameters, always_specify_types
 
-extension GetUserCollection on Isar {
-  IsarCollection<User> get users => this.collection();
+extension GetUserModelCollection on Isar {
+  IsarCollection<UserModel> get userModels => this.collection();
 }
 
-const UserSchema = CollectionSchema(
-  name: r'User',
-  id: -7838171048429979076,
+const UserModelSchema = CollectionSchema(
+  name: r'UserModel',
+  id: 7195426469378571114,
   properties: {
     r'email': PropertySchema(
       id: 0,
@@ -31,25 +31,25 @@ const UserSchema = CollectionSchema(
       id: 2,
       name: r'role',
       type: IsarType.byte,
-      enumMap: _UserroleEnumValueMap,
+      enumMap: _UserModelroleEnumValueMap,
     )
   },
-  estimateSize: _userEstimateSize,
-  serialize: _userSerialize,
-  deserialize: _userDeserialize,
-  deserializeProp: _userDeserializeProp,
+  estimateSize: _userModelEstimateSize,
+  serialize: _userModelSerialize,
+  deserialize: _userModelDeserialize,
+  deserializeProp: _userModelDeserializeProp,
   idName: r'id',
   indexes: {},
   links: {},
   embeddedSchemas: {},
-  getId: _userGetId,
-  getLinks: _userGetLinks,
-  attach: _userAttach,
+  getId: _userModelGetId,
+  getLinks: _userModelGetLinks,
+  attach: _userModelAttach,
   version: '3.1.0+1',
 );
 
-int _userEstimateSize(
-  User object,
+int _userModelEstimateSize(
+  UserModel object,
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
 ) {
@@ -59,8 +59,8 @@ int _userEstimateSize(
   return bytesCount;
 }
 
-void _userSerialize(
-  User object,
+void _userModelSerialize(
+  UserModel object,
   IsarWriter writer,
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
@@ -70,23 +70,23 @@ void _userSerialize(
   writer.writeByte(offsets[2], object.role.index);
 }
 
-User _userDeserialize(
+UserModel _userModelDeserialize(
   Id id,
   IsarReader reader,
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
 ) {
-  final object = User(
+  final object = UserModel(
     email: reader.readString(offsets[0]),
     id: id,
     name: reader.readString(offsets[1]),
-    role: _UserroleValueEnumMap[reader.readByteOrNull(offsets[2])] ??
+    role: _UserModelroleValueEnumMap[reader.readByteOrNull(offsets[2])] ??
         Role.productOwner,
   );
   return object;
 }
 
-P _userDeserializeProp<P>(
+P _userModelDeserializeProp<P>(
   IsarReader reader,
   int propertyId,
   int offset,
@@ -98,46 +98,48 @@ P _userDeserializeProp<P>(
     case 1:
       return (reader.readString(offset)) as P;
     case 2:
-      return (_UserroleValueEnumMap[reader.readByteOrNull(offset)] ??
+      return (_UserModelroleValueEnumMap[reader.readByteOrNull(offset)] ??
           Role.productOwner) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
   }
 }
 
-const _UserroleEnumValueMap = {
+const _UserModelroleEnumValueMap = {
   'productOwner': 0,
   'designer': 1,
   'developer': 2,
   'tester': 3,
 };
-const _UserroleValueEnumMap = {
+const _UserModelroleValueEnumMap = {
   0: Role.productOwner,
   1: Role.designer,
   2: Role.developer,
   3: Role.tester,
 };
 
-Id _userGetId(User object) {
+Id _userModelGetId(UserModel object) {
   return object.id;
 }
 
-List<IsarLinkBase<dynamic>> _userGetLinks(User object) {
+List<IsarLinkBase<dynamic>> _userModelGetLinks(UserModel object) {
   return [];
 }
 
-void _userAttach(IsarCollection<dynamic> col, Id id, User object) {}
+void _userModelAttach(IsarCollection<dynamic> col, Id id, UserModel object) {}
 
-extension UserQueryWhereSort on QueryBuilder<User, User, QWhere> {
-  QueryBuilder<User, User, QAfterWhere> anyId() {
+extension UserModelQueryWhereSort
+    on QueryBuilder<UserModel, UserModel, QWhere> {
+  QueryBuilder<UserModel, UserModel, QAfterWhere> anyId() {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(const IdWhereClause.any());
     });
   }
 }
 
-extension UserQueryWhere on QueryBuilder<User, User, QWhereClause> {
-  QueryBuilder<User, User, QAfterWhereClause> idEqualTo(Id id) {
+extension UserModelQueryWhere
+    on QueryBuilder<UserModel, UserModel, QWhereClause> {
+  QueryBuilder<UserModel, UserModel, QAfterWhereClause> idEqualTo(Id id) {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(IdWhereClause.between(
         lower: id,
@@ -146,7 +148,7 @@ extension UserQueryWhere on QueryBuilder<User, User, QWhereClause> {
     });
   }
 
-  QueryBuilder<User, User, QAfterWhereClause> idNotEqualTo(Id id) {
+  QueryBuilder<UserModel, UserModel, QAfterWhereClause> idNotEqualTo(Id id) {
     return QueryBuilder.apply(this, (query) {
       if (query.whereSort == Sort.asc) {
         return query
@@ -168,7 +170,7 @@ extension UserQueryWhere on QueryBuilder<User, User, QWhereClause> {
     });
   }
 
-  QueryBuilder<User, User, QAfterWhereClause> idGreaterThan(Id id,
+  QueryBuilder<UserModel, UserModel, QAfterWhereClause> idGreaterThan(Id id,
       {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(
@@ -177,7 +179,7 @@ extension UserQueryWhere on QueryBuilder<User, User, QWhereClause> {
     });
   }
 
-  QueryBuilder<User, User, QAfterWhereClause> idLessThan(Id id,
+  QueryBuilder<UserModel, UserModel, QAfterWhereClause> idLessThan(Id id,
       {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(
@@ -186,7 +188,7 @@ extension UserQueryWhere on QueryBuilder<User, User, QWhereClause> {
     });
   }
 
-  QueryBuilder<User, User, QAfterWhereClause> idBetween(
+  QueryBuilder<UserModel, UserModel, QAfterWhereClause> idBetween(
     Id lowerId,
     Id upperId, {
     bool includeLower = true,
@@ -203,8 +205,9 @@ extension UserQueryWhere on QueryBuilder<User, User, QWhereClause> {
   }
 }
 
-extension UserQueryFilter on QueryBuilder<User, User, QFilterCondition> {
-  QueryBuilder<User, User, QAfterFilterCondition> emailEqualTo(
+extension UserModelQueryFilter
+    on QueryBuilder<UserModel, UserModel, QFilterCondition> {
+  QueryBuilder<UserModel, UserModel, QAfterFilterCondition> emailEqualTo(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -217,7 +220,7 @@ extension UserQueryFilter on QueryBuilder<User, User, QFilterCondition> {
     });
   }
 
-  QueryBuilder<User, User, QAfterFilterCondition> emailGreaterThan(
+  QueryBuilder<UserModel, UserModel, QAfterFilterCondition> emailGreaterThan(
     String value, {
     bool include = false,
     bool caseSensitive = true,
@@ -232,7 +235,7 @@ extension UserQueryFilter on QueryBuilder<User, User, QFilterCondition> {
     });
   }
 
-  QueryBuilder<User, User, QAfterFilterCondition> emailLessThan(
+  QueryBuilder<UserModel, UserModel, QAfterFilterCondition> emailLessThan(
     String value, {
     bool include = false,
     bool caseSensitive = true,
@@ -247,7 +250,7 @@ extension UserQueryFilter on QueryBuilder<User, User, QFilterCondition> {
     });
   }
 
-  QueryBuilder<User, User, QAfterFilterCondition> emailBetween(
+  QueryBuilder<UserModel, UserModel, QAfterFilterCondition> emailBetween(
     String lower,
     String upper, {
     bool includeLower = true,
@@ -266,7 +269,7 @@ extension UserQueryFilter on QueryBuilder<User, User, QFilterCondition> {
     });
   }
 
-  QueryBuilder<User, User, QAfterFilterCondition> emailStartsWith(
+  QueryBuilder<UserModel, UserModel, QAfterFilterCondition> emailStartsWith(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -279,7 +282,7 @@ extension UserQueryFilter on QueryBuilder<User, User, QFilterCondition> {
     });
   }
 
-  QueryBuilder<User, User, QAfterFilterCondition> emailEndsWith(
+  QueryBuilder<UserModel, UserModel, QAfterFilterCondition> emailEndsWith(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -292,7 +295,8 @@ extension UserQueryFilter on QueryBuilder<User, User, QFilterCondition> {
     });
   }
 
-  QueryBuilder<User, User, QAfterFilterCondition> emailContains(String value,
+  QueryBuilder<UserModel, UserModel, QAfterFilterCondition> emailContains(
+      String value,
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.contains(
@@ -303,7 +307,8 @@ extension UserQueryFilter on QueryBuilder<User, User, QFilterCondition> {
     });
   }
 
-  QueryBuilder<User, User, QAfterFilterCondition> emailMatches(String pattern,
+  QueryBuilder<UserModel, UserModel, QAfterFilterCondition> emailMatches(
+      String pattern,
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.matches(
@@ -314,7 +319,7 @@ extension UserQueryFilter on QueryBuilder<User, User, QFilterCondition> {
     });
   }
 
-  QueryBuilder<User, User, QAfterFilterCondition> emailIsEmpty() {
+  QueryBuilder<UserModel, UserModel, QAfterFilterCondition> emailIsEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'email',
@@ -323,7 +328,7 @@ extension UserQueryFilter on QueryBuilder<User, User, QFilterCondition> {
     });
   }
 
-  QueryBuilder<User, User, QAfterFilterCondition> emailIsNotEmpty() {
+  QueryBuilder<UserModel, UserModel, QAfterFilterCondition> emailIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         property: r'email',
@@ -332,7 +337,8 @@ extension UserQueryFilter on QueryBuilder<User, User, QFilterCondition> {
     });
   }
 
-  QueryBuilder<User, User, QAfterFilterCondition> idEqualTo(Id value) {
+  QueryBuilder<UserModel, UserModel, QAfterFilterCondition> idEqualTo(
+      Id value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'id',
@@ -341,7 +347,7 @@ extension UserQueryFilter on QueryBuilder<User, User, QFilterCondition> {
     });
   }
 
-  QueryBuilder<User, User, QAfterFilterCondition> idGreaterThan(
+  QueryBuilder<UserModel, UserModel, QAfterFilterCondition> idGreaterThan(
     Id value, {
     bool include = false,
   }) {
@@ -354,7 +360,7 @@ extension UserQueryFilter on QueryBuilder<User, User, QFilterCondition> {
     });
   }
 
-  QueryBuilder<User, User, QAfterFilterCondition> idLessThan(
+  QueryBuilder<UserModel, UserModel, QAfterFilterCondition> idLessThan(
     Id value, {
     bool include = false,
   }) {
@@ -367,7 +373,7 @@ extension UserQueryFilter on QueryBuilder<User, User, QFilterCondition> {
     });
   }
 
-  QueryBuilder<User, User, QAfterFilterCondition> idBetween(
+  QueryBuilder<UserModel, UserModel, QAfterFilterCondition> idBetween(
     Id lower,
     Id upper, {
     bool includeLower = true,
@@ -384,7 +390,7 @@ extension UserQueryFilter on QueryBuilder<User, User, QFilterCondition> {
     });
   }
 
-  QueryBuilder<User, User, QAfterFilterCondition> nameEqualTo(
+  QueryBuilder<UserModel, UserModel, QAfterFilterCondition> nameEqualTo(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -397,7 +403,7 @@ extension UserQueryFilter on QueryBuilder<User, User, QFilterCondition> {
     });
   }
 
-  QueryBuilder<User, User, QAfterFilterCondition> nameGreaterThan(
+  QueryBuilder<UserModel, UserModel, QAfterFilterCondition> nameGreaterThan(
     String value, {
     bool include = false,
     bool caseSensitive = true,
@@ -412,7 +418,7 @@ extension UserQueryFilter on QueryBuilder<User, User, QFilterCondition> {
     });
   }
 
-  QueryBuilder<User, User, QAfterFilterCondition> nameLessThan(
+  QueryBuilder<UserModel, UserModel, QAfterFilterCondition> nameLessThan(
     String value, {
     bool include = false,
     bool caseSensitive = true,
@@ -427,7 +433,7 @@ extension UserQueryFilter on QueryBuilder<User, User, QFilterCondition> {
     });
   }
 
-  QueryBuilder<User, User, QAfterFilterCondition> nameBetween(
+  QueryBuilder<UserModel, UserModel, QAfterFilterCondition> nameBetween(
     String lower,
     String upper, {
     bool includeLower = true,
@@ -446,7 +452,7 @@ extension UserQueryFilter on QueryBuilder<User, User, QFilterCondition> {
     });
   }
 
-  QueryBuilder<User, User, QAfterFilterCondition> nameStartsWith(
+  QueryBuilder<UserModel, UserModel, QAfterFilterCondition> nameStartsWith(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -459,7 +465,7 @@ extension UserQueryFilter on QueryBuilder<User, User, QFilterCondition> {
     });
   }
 
-  QueryBuilder<User, User, QAfterFilterCondition> nameEndsWith(
+  QueryBuilder<UserModel, UserModel, QAfterFilterCondition> nameEndsWith(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -472,7 +478,8 @@ extension UserQueryFilter on QueryBuilder<User, User, QFilterCondition> {
     });
   }
 
-  QueryBuilder<User, User, QAfterFilterCondition> nameContains(String value,
+  QueryBuilder<UserModel, UserModel, QAfterFilterCondition> nameContains(
+      String value,
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.contains(
@@ -483,7 +490,8 @@ extension UserQueryFilter on QueryBuilder<User, User, QFilterCondition> {
     });
   }
 
-  QueryBuilder<User, User, QAfterFilterCondition> nameMatches(String pattern,
+  QueryBuilder<UserModel, UserModel, QAfterFilterCondition> nameMatches(
+      String pattern,
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.matches(
@@ -494,7 +502,7 @@ extension UserQueryFilter on QueryBuilder<User, User, QFilterCondition> {
     });
   }
 
-  QueryBuilder<User, User, QAfterFilterCondition> nameIsEmpty() {
+  QueryBuilder<UserModel, UserModel, QAfterFilterCondition> nameIsEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'name',
@@ -503,7 +511,7 @@ extension UserQueryFilter on QueryBuilder<User, User, QFilterCondition> {
     });
   }
 
-  QueryBuilder<User, User, QAfterFilterCondition> nameIsNotEmpty() {
+  QueryBuilder<UserModel, UserModel, QAfterFilterCondition> nameIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         property: r'name',
@@ -512,7 +520,8 @@ extension UserQueryFilter on QueryBuilder<User, User, QFilterCondition> {
     });
   }
 
-  QueryBuilder<User, User, QAfterFilterCondition> roleEqualTo(Role value) {
+  QueryBuilder<UserModel, UserModel, QAfterFilterCondition> roleEqualTo(
+      Role value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'role',
@@ -521,7 +530,7 @@ extension UserQueryFilter on QueryBuilder<User, User, QFilterCondition> {
     });
   }
 
-  QueryBuilder<User, User, QAfterFilterCondition> roleGreaterThan(
+  QueryBuilder<UserModel, UserModel, QAfterFilterCondition> roleGreaterThan(
     Role value, {
     bool include = false,
   }) {
@@ -534,7 +543,7 @@ extension UserQueryFilter on QueryBuilder<User, User, QFilterCondition> {
     });
   }
 
-  QueryBuilder<User, User, QAfterFilterCondition> roleLessThan(
+  QueryBuilder<UserModel, UserModel, QAfterFilterCondition> roleLessThan(
     Role value, {
     bool include = false,
   }) {
@@ -547,7 +556,7 @@ extension UserQueryFilter on QueryBuilder<User, User, QFilterCondition> {
     });
   }
 
-  QueryBuilder<User, User, QAfterFilterCondition> roleBetween(
+  QueryBuilder<UserModel, UserModel, QAfterFilterCondition> roleBetween(
     Role lower,
     Role upper, {
     bool includeLower = true,
@@ -565,140 +574,145 @@ extension UserQueryFilter on QueryBuilder<User, User, QFilterCondition> {
   }
 }
 
-extension UserQueryObject on QueryBuilder<User, User, QFilterCondition> {}
+extension UserModelQueryObject
+    on QueryBuilder<UserModel, UserModel, QFilterCondition> {}
 
-extension UserQueryLinks on QueryBuilder<User, User, QFilterCondition> {}
+extension UserModelQueryLinks
+    on QueryBuilder<UserModel, UserModel, QFilterCondition> {}
 
-extension UserQuerySortBy on QueryBuilder<User, User, QSortBy> {
-  QueryBuilder<User, User, QAfterSortBy> sortByEmail() {
+extension UserModelQuerySortBy on QueryBuilder<UserModel, UserModel, QSortBy> {
+  QueryBuilder<UserModel, UserModel, QAfterSortBy> sortByEmail() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'email', Sort.asc);
     });
   }
 
-  QueryBuilder<User, User, QAfterSortBy> sortByEmailDesc() {
+  QueryBuilder<UserModel, UserModel, QAfterSortBy> sortByEmailDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'email', Sort.desc);
     });
   }
 
-  QueryBuilder<User, User, QAfterSortBy> sortByName() {
+  QueryBuilder<UserModel, UserModel, QAfterSortBy> sortByName() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'name', Sort.asc);
     });
   }
 
-  QueryBuilder<User, User, QAfterSortBy> sortByNameDesc() {
+  QueryBuilder<UserModel, UserModel, QAfterSortBy> sortByNameDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'name', Sort.desc);
     });
   }
 
-  QueryBuilder<User, User, QAfterSortBy> sortByRole() {
+  QueryBuilder<UserModel, UserModel, QAfterSortBy> sortByRole() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'role', Sort.asc);
     });
   }
 
-  QueryBuilder<User, User, QAfterSortBy> sortByRoleDesc() {
+  QueryBuilder<UserModel, UserModel, QAfterSortBy> sortByRoleDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'role', Sort.desc);
     });
   }
 }
 
-extension UserQuerySortThenBy on QueryBuilder<User, User, QSortThenBy> {
-  QueryBuilder<User, User, QAfterSortBy> thenByEmail() {
+extension UserModelQuerySortThenBy
+    on QueryBuilder<UserModel, UserModel, QSortThenBy> {
+  QueryBuilder<UserModel, UserModel, QAfterSortBy> thenByEmail() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'email', Sort.asc);
     });
   }
 
-  QueryBuilder<User, User, QAfterSortBy> thenByEmailDesc() {
+  QueryBuilder<UserModel, UserModel, QAfterSortBy> thenByEmailDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'email', Sort.desc);
     });
   }
 
-  QueryBuilder<User, User, QAfterSortBy> thenById() {
+  QueryBuilder<UserModel, UserModel, QAfterSortBy> thenById() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'id', Sort.asc);
     });
   }
 
-  QueryBuilder<User, User, QAfterSortBy> thenByIdDesc() {
+  QueryBuilder<UserModel, UserModel, QAfterSortBy> thenByIdDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'id', Sort.desc);
     });
   }
 
-  QueryBuilder<User, User, QAfterSortBy> thenByName() {
+  QueryBuilder<UserModel, UserModel, QAfterSortBy> thenByName() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'name', Sort.asc);
     });
   }
 
-  QueryBuilder<User, User, QAfterSortBy> thenByNameDesc() {
+  QueryBuilder<UserModel, UserModel, QAfterSortBy> thenByNameDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'name', Sort.desc);
     });
   }
 
-  QueryBuilder<User, User, QAfterSortBy> thenByRole() {
+  QueryBuilder<UserModel, UserModel, QAfterSortBy> thenByRole() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'role', Sort.asc);
     });
   }
 
-  QueryBuilder<User, User, QAfterSortBy> thenByRoleDesc() {
+  QueryBuilder<UserModel, UserModel, QAfterSortBy> thenByRoleDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'role', Sort.desc);
     });
   }
 }
 
-extension UserQueryWhereDistinct on QueryBuilder<User, User, QDistinct> {
-  QueryBuilder<User, User, QDistinct> distinctByEmail(
+extension UserModelQueryWhereDistinct
+    on QueryBuilder<UserModel, UserModel, QDistinct> {
+  QueryBuilder<UserModel, UserModel, QDistinct> distinctByEmail(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'email', caseSensitive: caseSensitive);
     });
   }
 
-  QueryBuilder<User, User, QDistinct> distinctByName(
+  QueryBuilder<UserModel, UserModel, QDistinct> distinctByName(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'name', caseSensitive: caseSensitive);
     });
   }
 
-  QueryBuilder<User, User, QDistinct> distinctByRole() {
+  QueryBuilder<UserModel, UserModel, QDistinct> distinctByRole() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'role');
     });
   }
 }
 
-extension UserQueryProperty on QueryBuilder<User, User, QQueryProperty> {
-  QueryBuilder<User, int, QQueryOperations> idProperty() {
+extension UserModelQueryProperty
+    on QueryBuilder<UserModel, UserModel, QQueryProperty> {
+  QueryBuilder<UserModel, int, QQueryOperations> idProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'id');
     });
   }
 
-  QueryBuilder<User, String, QQueryOperations> emailProperty() {
+  QueryBuilder<UserModel, String, QQueryOperations> emailProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'email');
     });
   }
 
-  QueryBuilder<User, String, QQueryOperations> nameProperty() {
+  QueryBuilder<UserModel, String, QQueryOperations> nameProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'name');
     });
   }
 
-  QueryBuilder<User, Role, QQueryOperations> roleProperty() {
+  QueryBuilder<UserModel, Role, QQueryOperations> roleProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'role');
     });
