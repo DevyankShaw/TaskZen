@@ -1,14 +1,19 @@
+import 'package:isar/isar.dart';
+
 import '../../../shared/enum/enum.dart';
-import '../../../shared/mock/mock_data.dart';
 import '../models/task_model.dart';
 import '../models/user_model.dart';
 
 class LocalDataSource {
+  final Isar isar;
+  LocalDataSource(this.isar);
+
   // Get all tasks
   Future<List<TaskModel>> getTasks() async {
     try {
-      await Future.delayed(Duration(milliseconds: 500));
-      return mockTaskModelist;
+      return await isar.writeTxn(() async {
+        return await isar.taskModels.where().findAll();
+      });
     } catch (_) {
       rethrow;
     }
@@ -17,7 +22,24 @@ class LocalDataSource {
   // create task
   Future<void> createTask(TaskModel taskModel) async {
     try {
-      mockTaskModelist.add(taskModel);
+      await isar.writeTxn(() async {
+        await isar.taskModels.put(taskModel);
+        await taskModel.assignee.save();
+      });
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  // create all task
+  Future<void> createAllTasks(List<TaskModel> taskModels) async {
+    try {
+      await isar.writeTxn(() async {
+        await isar.taskModels.putAll(taskModels);
+        await Future.wait(
+          taskModels.map((taskModel) async => await taskModel.assignee.save()),
+        );
+      });
     } catch (e) {
       rethrow;
     }
@@ -26,15 +48,16 @@ class LocalDataSource {
   // update task
   Future<void> updateTask(TaskModel taskModel) async {
     try {
-      final updateIndex = mockTaskModelist.indexWhere(
-        (element) => element.id == taskModel.id,
-      );
+      await isar.writeTxn(() async {
+        final taskData = await isar.taskModels.get(taskModel.id);
 
-      if (updateIndex == -1) {
-        throw Exception('Task with taskId ${taskModel.id} doesn\'t exists');
-      }
+        if (taskData == null) {
+          throw Exception('Task with taskId ${taskModel.id} doesn\'t exists');
+        }
 
-      mockTaskModelist[updateIndex] = taskModel;
+        await isar.taskModels.put(taskModel);
+        await taskModel.assignee.save();
+      });
     } catch (e) {
       rethrow;
     }
@@ -43,14 +66,9 @@ class LocalDataSource {
   // get task by id
   Future<TaskModel?> getTaskById(int taskId) async {
     try {
-      final searchIndex = mockTaskModelist.indexWhere(
-        (element) => element.id == taskId,
-      );
-      if (searchIndex != -1) {
-        return mockTaskModelist[searchIndex - 1];
-      } else {
-        return null;
-      }
+      return await isar.writeTxn(() async {
+        return await isar.taskModels.get(taskId);
+      });
     } catch (e) {
       rethrow;
     }
@@ -59,8 +77,9 @@ class LocalDataSource {
   // Get all users
   Future<List<UserModel>> getUsers() async {
     try {
-      await Future.delayed(Duration(milliseconds: 500));
-      return mockUserModelList;
+      return await isar.writeTxn(() async {
+        return await isar.userModels.where().findAll();
+      });
     } catch (_) {
       rethrow;
     }
@@ -69,7 +88,20 @@ class LocalDataSource {
   // create user
   Future<void> createUser(UserModel userModel) async {
     try {
-      mockUserModelList.add(userModel);
+      await isar.writeTxn(() async {
+        await isar.userModels.put(userModel);
+      });
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  // create all user
+  Future<void> createAllUsers(List<UserModel> userModels) async {
+    try {
+      await isar.writeTxn(() async {
+        await isar.userModels.putAll(userModels);
+      });
     } catch (e) {
       rethrow;
     }
@@ -78,15 +110,15 @@ class LocalDataSource {
   // update user
   Future<void> updateUser(UserModel userModel) async {
     try {
-      final updateIndex = mockUserModelList.indexWhere(
-        (element) => element.id == userModel.id,
-      );
+      await isar.writeTxn(() async {
+        final userData = await isar.userModels.get(userModel.id);
 
-      if (updateIndex == -1) {
-        throw Exception('User with userId ${userModel.id} doesn\'t exists');
-      }
+        if (userData == null) {
+          throw Exception('User with userId ${userModel.id} doesn\'t exists');
+        }
 
-      mockUserModelList[updateIndex] = userModel;
+        await isar.userModels.put(userModel);
+      });
     } catch (e) {
       rethrow;
     }
@@ -95,14 +127,9 @@ class LocalDataSource {
   // Get user by id
   Future<UserModel?> getUserById(int userId) async {
     try {
-      final searchIndex = mockUserModelList.indexWhere(
-        (element) => element.id == userId,
-      );
-      if (searchIndex != -1) {
-        return mockUserModelList[searchIndex - 1];
-      } else {
-        return null;
-      }
+      return await isar.writeTxn(() async {
+        return await isar.userModels.get(userId);
+      });
     } catch (e) {
       rethrow;
     }
@@ -115,49 +142,23 @@ class LocalDataSource {
     List<TaskPriority> priorities = const [],
   }) async {
     try {
-      await Future.delayed(Duration(milliseconds: 200));
+      return await isar.writeTxn(() async {
+        final query = isar.taskModels.filter().group((gp) {
+          return gp
+              .titleContains(title ?? '', caseSensitive: false)
+              .and()
+              .anyOf(priorities, (q, priority) => q.priorityEqualTo(priority))
+              .and()
+              .anyOf(
+                assignees,
+                (q, assignee) => q.assignee((qa) => qa.idEqualTo(assignee.id)),
+              );
+        });
 
-      var filteredTasks = <TaskModel>[];
+        final filteredTasks = await query.findAll();
 
-      if (title?.isNotEmpty ?? false) {
-        filteredTasks = mockTaskModelist
-            .where((task) => task.title.toLowerCase().contains(title!))
-            .toList();
-      }
-
-      if (assignees.isNotEmpty) {
-        if (filteredTasks.isNotEmpty) {
-          filteredTasks = filteredTasks
-              .where(
-                (task) => assignees.any(
-                  (element) => element.id == task.assignee.value?.id,
-                ),
-              )
-              .toList();
-        } else {
-          filteredTasks = mockTaskModelist
-              .where(
-                (task) => assignees.any(
-                  (element) => element.id == task.assignee.value?.id,
-                ),
-              )
-              .toList();
-        }
-      }
-
-      if (priorities.isNotEmpty) {
-        if (filteredTasks.isNotEmpty) {
-          filteredTasks = filteredTasks
-              .where((task) => priorities.contains(task.priority))
-              .toList();
-        } else {
-          filteredTasks = mockTaskModelist
-              .where((task) => priorities.contains(task.priority))
-              .toList();
-        }
-      }
-
-      return filteredTasks;
+        return filteredTasks;
+      });
     } catch (_) {
       rethrow;
     }

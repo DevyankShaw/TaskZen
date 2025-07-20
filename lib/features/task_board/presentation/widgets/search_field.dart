@@ -47,11 +47,12 @@ class _SearchFieldState extends ConsumerState<SearchField> {
           if ((searchedTitle?.isEmpty ?? true) &&
               selectedAssignees.isEmpty &&
               selectedTaskPriorities.isEmpty) {
-            ref.read(taskBlocProvider).add(LoadTasksEvent());
+            ref.read(taskBlocProvider).value?.add(LoadTasksEvent());
           } else {
             ref
                 .read(taskBlocProvider)
-                .add(
+                .value
+                ?.add(
                   FilterTasksEvent(
                     title: searchedTitle,
                     assignees: selectedAssignees,

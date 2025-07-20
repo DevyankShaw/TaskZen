@@ -46,7 +46,7 @@ class _TaskFormPageState extends ConsumerState<TaskFormPage> {
           ? dateFormat.format(widget.task!.deadline!)
           : '';
       _deadline = widget.task!.deadline;
-      _assignee = widget.task!.assignee.value;
+      _assignee = widget.task!.assignee;
       _priority = widget.task!.priority;
       _status = widget.task!.status;
     }
@@ -57,18 +57,19 @@ class _TaskFormPageState extends ConsumerState<TaskFormPage> {
 
     final now = DateTime.now();
 
-    final bloc = ref.read(taskBlocProvider);
+    final bloc = ref.read(taskBlocProvider).value;
     if (widget.task == null) {
       final task = Task(
         id: now.millisecondsSinceEpoch,
         title: _titleController.text.trim(),
         description: _descriptionController.text.trim(),
+        assignee: _assignee,
         deadline: _deadline,
         priority: _priority,
         status: _status,
         createdAt: now,
-      )..assignee.value = _assignee;
-      bloc.add(AddTaskEvent(task));
+      );
+      bloc?.add(AddTaskEvent(task));
     } else {
       final task = widget.task!.copyWith(
         title: _titleController.text.trim(),
@@ -79,7 +80,7 @@ class _TaskFormPageState extends ConsumerState<TaskFormPage> {
         status: _status,
         updatedAt: now,
       );
-      bloc.add(UpdateTaskEvent(task));
+      bloc?.add(UpdateTaskEvent(task));
     }
     //TODO: Need to find way to rebuild with filtered values or reset it post add/update task
 
