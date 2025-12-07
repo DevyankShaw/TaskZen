@@ -36,18 +36,24 @@ class TaskBloc extends Bloc<TaskEvent, TaskState> {
 
   Future<void> _onAdd(AddTaskEvent event, Emitter<TaskState> emit) async {
     final result = await useCases.createTask(event.task);
-    result.fold(
-      (fail) => emit(TaskError(fail.message)),
-      (_) => add(LoadTasksEvent()),
-    );
+    result.fold((fail) => emit(TaskError(fail.message)), (_) {
+      if (event.filterParams != null) {
+        add(event.filterParams!);
+      } else {
+        add(LoadTasksEvent());
+      }
+    });
   }
 
   Future<void> _onUpdate(UpdateTaskEvent event, Emitter<TaskState> emit) async {
     final result = await useCases.updateTask(event.task);
-    result.fold(
-      (fail) => emit(TaskError(fail.message)),
-      (_) => add(LoadTasksEvent()),
-    );
+    result.fold((fail) => emit(TaskError(fail.message)), (_) {
+      if (event.filterParams != null) {
+        add(event.filterParams!);
+      } else {
+        add(LoadTasksEvent());
+      }
+    });
   }
 
   Future<void> _onLoadTaskById(
@@ -81,7 +87,10 @@ class TaskBloc extends Bloc<TaskEvent, TaskState> {
     );
   }
 
-   Future<void> _onAddAll(AddAllTasksEvent event, Emitter<TaskState> emit) async {
+  Future<void> _onAddAll(
+    AddAllTasksEvent event,
+    Emitter<TaskState> emit,
+  ) async {
     final result = await useCases.createAllTasks(event.tasks);
     result.fold(
       (fail) => emit(TaskError(fail.message)),

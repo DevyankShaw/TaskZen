@@ -139,6 +139,23 @@ void main() {
       act: (bloc) => bloc.add(AddTaskEvent(newTask)),
       expect: () => [TaskError('Failed to add task')],
     );
+
+    blocTest<TaskBloc, TaskState>(
+      'emits [TaskLoading, TaskLoaded] with filtered tasks when AddTaskEvent is added with filterParams',
+      build: () {
+        when(
+          () => taskUseCases.createTask(newTask),
+        ).thenAnswer((_) async => Either.right(null));
+        when(
+          () => taskUseCases.filterTasks(title: 'filter'),
+        ).thenAnswer((_) async => Either.right(newMockTaskList));
+        return taskBloc;
+      },
+      act: (bloc) => bloc.add(
+        AddTaskEvent(newTask, filterParams: FilterTasksEvent(title: 'filter')),
+      ),
+      expect: () => [TaskLoading(), TaskLoaded(newMockTaskList)],
+    );
   });
 
   group('UpdateTaskEvent', () {
@@ -176,6 +193,26 @@ void main() {
       },
       act: (bloc) => bloc.add(UpdateTaskEvent(updateTask)),
       expect: () => [TaskError('Failed to update task')],
+    );
+
+    blocTest<TaskBloc, TaskState>(
+      'emits [TaskLoading, TaskLoaded] with filtered tasks when UpdateTaskEvent is updated with filterParams',
+      build: () {
+        when(
+          () => taskUseCases.updateTask(updateTask),
+        ).thenAnswer((_) async => Either.right(null));
+        when(
+          () => taskUseCases.filterTasks(title: 'filter'),
+        ).thenAnswer((_) async => Either.right(updateMockTaskList));
+        return taskBloc;
+      },
+      act: (bloc) => bloc.add(
+        UpdateTaskEvent(
+          updateTask,
+          filterParams: FilterTasksEvent(title: 'filter'),
+        ),
+      ),
+      expect: () => [TaskLoading(), TaskLoaded(updateMockTaskList)],
     );
   });
 

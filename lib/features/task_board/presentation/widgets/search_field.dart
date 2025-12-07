@@ -30,6 +30,12 @@ class _SearchFieldState extends ConsumerState<SearchField> {
 
   @override
   Widget build(BuildContext context) {
+    ref.listen(filterStateProvider, (previous, next) {
+      if (next.searchedTitle == null && _controller.text.isNotEmpty) {
+        _controller.clear();
+      }
+    });
+
     return Container(
       padding: const EdgeInsets.all(12),
       color: AppTheme.backgroundColor,

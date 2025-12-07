@@ -9,16 +9,18 @@ class LoadTasksEvent extends TaskEvent {}
 
 class AddTaskEvent extends TaskEvent {
   final Task task;
-  AddTaskEvent(this.task);
+  final FilterTasksEvent? filterParams;
+  AddTaskEvent(this.task, {this.filterParams});
   @override
-  List<Object?> get props => [task];
+  List<Object?> get props => [task, filterParams];
 }
 
 class UpdateTaskEvent extends TaskEvent {
   final Task task;
-  UpdateTaskEvent(this.task);
+  final FilterTasksEvent? filterParams;
+  UpdateTaskEvent(this.task, {this.filterParams});
   @override
-  List<Object?> get props => [task];
+  List<Object?> get props => [task, filterParams];
 }
 
 class GetTaskByIdEvent extends TaskEvent {

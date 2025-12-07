@@ -10,6 +10,7 @@ import '../blocs/task/task_bloc.dart';
 import '../blocs/user/user_bloc.dart';
 import '../providers/task/task_provider.dart';
 import '../providers/user/user_provider.dart';
+import '../providers/filter/filter_provider.dart';
 
 class TaskFormPage extends ConsumerStatefulWidget {
   final Task? task;
@@ -57,6 +58,23 @@ class _TaskFormPageState extends ConsumerState<TaskFormPage> {
 
     final now = DateTime.now();
 
+    final filterState = ref.read(filterStateProvider);
+    final searchedTitle = filterState.searchedTitle;
+    final selectedPriorities = filterState.selectedPriorities;
+    final selectedAssignees = filterState.selectedAssignees;
+
+    FilterTasksEvent? filterEvent;
+
+    if (!((searchedTitle?.isEmpty ?? true) &&
+        selectedAssignees.isEmpty &&
+        selectedPriorities.isEmpty)) {
+      filterEvent = FilterTasksEvent(
+        title: searchedTitle,
+        assignees: selectedAssignees,
+        priorities: selectedPriorities,
+      );
+    }
+
     final bloc = ref.read(taskBlocProvider).value;
     if (widget.task == null) {
       final task = Task(
@@ -69,7 +87,7 @@ class _TaskFormPageState extends ConsumerState<TaskFormPage> {
         status: _status,
         createdAt: now,
       );
-      bloc?.add(AddTaskEvent(task));
+      bloc?.add(AddTaskEvent(task, filterParams: filterEvent));
     } else {
       final task = widget.task!.copyWith(
         title: _titleController.text.trim(),
@@ -80,9 +98,8 @@ class _TaskFormPageState extends ConsumerState<TaskFormPage> {
         status: _status,
         updatedAt: now,
       );
-      bloc?.add(UpdateTaskEvent(task));
+      bloc?.add(UpdateTaskEvent(task, filterParams: filterEvent));
     }
-    //TODO: Need to find way to rebuild with filtered values or reset it post add/update task
 
     context.pop(context);
   }

@@ -106,7 +106,6 @@ class FilterContent extends ConsumerWidget {
                     children: [
                       ElevatedButton.icon(
                         onPressed: () async {
-                          // TODO: Need to reset controller while trying to clear using clear button on bottom sheet
                           filterNotifier.clearFilters();
                         },
                         icon: const Icon(Icons.clear),
